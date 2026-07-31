@@ -3,20 +3,20 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>SHRNKR — Middleware That Charges You Less By Making Your AI Dumber</title>
-<meta name="description" content="SHRNKR sits between you and your AI agent and shrinks every prompt and response into fewer, uglier tokens — so your bill goes down and your output goes to hell.">
+<title>SHRNKR — Middleware That Deletes The Words You Didn't Need</title>
+<meta name="description" content="SHRNKR sits between you and your AI agent and strips every prompt and response down to the words carrying the meaning — fewer tokens in, fewer tokens out, lower bill, every time.">
 <meta name="robots" content="index, follow">
 <link rel="canonical" href="https://shrnkr.dev/">
 
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://shrnkr.dev/">
-<meta property="og:title" content="SHRNKR — Middleware That Charges You Less By Making Your AI Dumber">
-<meta property="og:description" content="SHRNKR sits between you and your AI agent and shrinks every prompt and response into fewer, uglier tokens — so your bill goes down and your output goes to hell.">
+<meta property="og:title" content="SHRNKR — Middleware That Deletes The Words You Didn't Need">
+<meta property="og:description" content="SHRNKR sits between you and your AI agent and strips every prompt and response down to the words carrying the meaning — fewer tokens in, fewer tokens out, lower bill, every time.">
 <meta property="og:locale" content="en_US">
 
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="SHRNKR — Middleware That Charges You Less By Making Your AI Dumber">
-<meta name="twitter:description" content="SHRNKR sits between you and your AI agent and shrinks every prompt and response into fewer, uglier tokens — so your bill goes down and your output goes to hell.">
+<meta name="twitter:title" content="SHRNKR — Middleware That Deletes The Words You Didn't Need">
+<meta name="twitter:description" content="SHRNKR sits between you and your AI agent and strips every prompt and response down to the words carrying the meaning — fewer tokens in, fewer tokens out, lower bill, every time.">
 
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
 
@@ -26,10 +26,6 @@
 <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
-
-<div class="ticker">
-  <div class="ticker-inner mono" id="tickerInner"></div>
-</div>
 
 <div class="wrap">
   <header>
@@ -45,9 +41,9 @@
   </header>
 
   <section class="hero">
-    <div class="stamp">PATENT PENDING &middot; TOKENS DIE HERE</div>
+    <div class="stamp">PATENT PENDING &middot; TOKENS DELETED DAILY</div>
     <h1 id="heroHeadline">STOP PAYING PER WORD</h1>
-    <p class="sub">SHRNKR sits between you and your AI agent and shrinks every prompt and response into fewer, uglier tokens — so your bill goes down and your output goes to hell. That's the trade. We're upfront about it.</p>
+    <p class="sub">SHRNKR sits between you and your AI agent and removes every word your prompts and responses don't need to get the job done. Fewer words in, fewer words out, fewer tokens billed. It's the most obvious cost optimization in AI, and somehow nobody's shipping it but us.</p>
     <div class="cta-row">
       <a class="btn" href="#demo">Try the shrinker</a>
       <a class="btn ghost" href="#install">npm install shrnkr</a>
@@ -63,7 +59,7 @@
       <div class="demo-controls">
         <label for="aggression">Aggression</label>
         <input type="range" id="aggression" min="1" max="5" value="3">
-        <label id="aggressionLabel" class="mono">Level 3 — "still technically words"</label>
+        <label id="aggressionLabel" class="mono">Level 3 — "noticeably efficient"</label>
       </div>
       <div class="cta-row" style="justify-content:flex-start;margin-bottom:0;">
         <button class="btn" id="shrinkBtn">Shrink it &rarr;</button>
@@ -90,7 +86,7 @@
       <div class="example-half">
         <div class="example-label after">After SHRNKR (Level 4)</div>
         <div class="example-text after">"sure3wayscutAWSbill:rightsizeEC2&rarr;movecoldS3Glacier&rarr;billalerts.done"</div>
-        <div class="example-tag">&darr; 41% tokens &middot; engineer now has questions</div>
+        <div class="example-tag">&darr; 41% tokens &middot; same three recommendations, none of the padding</div>
       </div>
     </div>
 
@@ -102,7 +98,7 @@
       <div class="example-half">
         <div class="example-label after">After SHRNKR (Level 3)</div>
         <div class="example-text after">"schedul clientcall thursdyPM — priya travln wed bck latemrn"</div>
-        <div class="example-tag">&darr; 33% tokens &middot; calendar invite sent to "thursdyPM"</div>
+        <div class="example-tag">&darr; 33% tokens &middot; meeting still lands Thursday afternoon</div>
       </div>
     </div>
 
@@ -114,71 +110,119 @@
       <div class="example-half">
         <div class="example-label after">After SHRNKR (Level 5 — Enterprise)</div>
         <div class="example-text after">"revup12pctentrprsegchurnupSMBlol"</div>
-        <div class="example-tag">&darr; 68% tokens &middot; board meeting rescheduled to clarify "lol"</div>
+        <div class="example-tag">&darr; 68% tokens &middot; full report, quarter the size</div>
       </div>
     </div>
   </section>
 
   <section>
     <div class="eyebrow">HOW IT WORKS</div>
-    <h2>Four proprietary degradations</h2>
+    <h2>Four proprietary compression passes</h2>
     <div class="feature-list">
       <div class="feature">
         <h3>Semantic Concatenation Engine&trade;</h3>
-        <p>Fuses adjacent words into a single unbroken token-saving compound, regardless of whether a human can still parse it.</p>
+        <p>Fuses adjacent words into a single compact token — same meaning, fewer characters on the invoice.</p>
       </div>
       <div class="feature">
         <h3>Adaptive Vowel Elision</h3>
-        <p>Silently removes vowels once your account crosses a self-imposed "token pressure" threshold we invented.</p>
+        <p>Drops the vowels your model never needed to infer intent, scaled to how aggressively you want to save.</p>
       </div>
       <div class="feature">
         <h3>Sentence Flattening</h3>
-        <p>Strips punctuation on the grounds that periods, like everything else, cost money.</p>
+        <p>Strips punctuation tokens that add cost without adding information.</p>
       </div>
       <div class="feature">
-        <h3>Confidence Padding</h3>
-        <p>Reinserts the words "clearly" and "obviously" at no extra charge, to offset the parts that no longer make sense.</p>
+        <h3>Redundant Phrase Detection</h3>
+        <p>Flags filler like "just wanted to check in" and "to be honest" and removes it before it ever reaches your model.</p>
       </div>
     </div>
   </section>
 
   <section id="pricing">
     <div class="eyebrow">RATES</div>
-    <h2>Priced like a 1890s telegram</h2>
+    <h2>We take 1% of what we save you</h2>
+    <p style="color:var(--ink-soft);margin-top:-14px;margin-bottom:26px;max-width:600px;">No subscription. No per-seat fee. SHRNKR's entire pricing model is 1% of the token spend it removes from your bill. The harder it shrinks, the more you keep. Modeled below on a $4,000/mo token spend.</p>
+
     <table class="rates">
       <tbody>
       <tr>
-        <th>Plan</th>
-        <th>Shrink level</th>
-        <th>Price</th>
-        <th>What survives</th>
+        <th>Level</th>
+        <th>Token reduction</th>
+        <th>Monthly savings</th>
+        <th>SHRNKR's fee (1%)</th>
+        <th>You keep</th>
       </tr>
       <tr>
-        <td>Free</td>
         <td>Level 1</td>
-        <td class="price">$0</td>
-        <td>Your dignity, mostly</td>
+        <td>8%</td>
+        <td>$320.00</td>
+        <td class="price">$3.20</td>
+        <td>$316.80</td>
       </tr>
       <tr>
-        <td>Starter</td>
+        <td>Level 2</td>
+        <td>19%</td>
+        <td>$760.00</td>
+        <td class="price">$7.60</td>
+        <td>$752.40</td>
+      </tr>
+      <tr>
         <td>Level 3</td>
-        <td class="price">$29<span style="font-size:12px;">/mo</span></td>
-        <td>Most vowels</td>
+        <td>33%</td>
+        <td>$1,320.00</td>
+        <td class="price">$13.20</td>
+        <td>$1,306.80</td>
       </tr>
       <tr>
-        <td>Growth</td>
         <td>Level 4</td>
-        <td class="price">$99<span style="font-size:12px;">/mo</span></td>
-        <td>Nouns, occasionally</td>
+        <td>41%</td>
+        <td>$1,640.00</td>
+        <td class="price">$16.40</td>
+        <td>$1,623.60</td>
       </tr>
       <tr>
-        <td>Enterprise</td>
         <td>Level 5</td>
-        <td class="price">Call us</td>
-        <td>A single unbroken word per response</td>
+        <td>68%</td>
+        <td>$2,720.00</td>
+        <td class="price">$27.20</td>
+        <td>$2,692.80</td>
       </tr>
       </tbody>
     </table>
+
+    <div class="fee-bars mono">
+      <div class="fee-bar-row">
+        <div class="label">Level 1</div>
+        <div class="fee-bar-track"><div class="fee-bar-fill" style="width:12%;"><div class="fee-bar-keep"></div><div class="fee-bar-fee"></div></div></div>
+        <div class="amount">$316.80 kept</div>
+      </div>
+      <div class="fee-bar-row">
+        <div class="label">Level 2</div>
+        <div class="fee-bar-track"><div class="fee-bar-fill" style="width:28%;"><div class="fee-bar-keep"></div><div class="fee-bar-fee"></div></div></div>
+        <div class="amount">$752.40 kept</div>
+      </div>
+      <div class="fee-bar-row">
+        <div class="label">Level 3</div>
+        <div class="fee-bar-track"><div class="fee-bar-fill" style="width:49%;"><div class="fee-bar-keep"></div><div class="fee-bar-fee"></div></div></div>
+        <div class="amount">$1,306.80 kept</div>
+      </div>
+      <div class="fee-bar-row">
+        <div class="label">Level 4</div>
+        <div class="fee-bar-track"><div class="fee-bar-fill" style="width:60%;"><div class="fee-bar-keep"></div><div class="fee-bar-fee"></div></div></div>
+        <div class="amount">$1,623.60 kept</div>
+      </div>
+      <div class="fee-bar-row">
+        <div class="label">Level 5</div>
+        <div class="fee-bar-track"><div class="fee-bar-fill" style="width:100%;"><div class="fee-bar-keep"></div><div class="fee-bar-fee"></div></div></div>
+        <div class="amount">$2,692.80 kept</div>
+      </div>
+      <div class="fee-bar-legend">
+        <span><i class="swatch keep"></i>You keep (99% of savings)</span>
+        <span><i class="swatch fee"></i>SHRNKR's fee (1% of savings)</span>
+      </div>
+    </div>
+
+    <p class="mono" style="font-size:13px;color:var(--ink-soft);margin-top:22px;">Worked example: spend $4,000/mo, run Level 4, cut 41% of your tokens. That's $1,640 saved. SHRNKR takes $16.40 of it. You keep $1,623.60. Same formula at any spend, any level.</p>
   </section>
 
   <section>
@@ -186,15 +230,15 @@
     <h2>What CTOs are typing</h2>
     <div class="testimonials">
       <div class="testi">
-        <p>"cutourtokencostsby40pctinweek1.stillnotsurewhatouragentagreedtobuildbutthecfoishappy."</p>
+        <p>"cutourtokenspendby41pctinweek1.didntchangeasingleprompttemplate."</p>
         <div class="who"><b>&mdash; Dana R.</b>, VP Eng at a Series B</div>
       </div>
       <div class="testi">
-        <p>"we turned it up to level 5 during a demo by accident. the client thought it was a new AI dialect. we let them believe that."</p>
+        <p>"we approved the pilot expecting a rounding error in savings. it was not a rounding error."</p>
         <div class="who"><b>&mdash; Priyank M.</b>, Founder</div>
       </div>
       <div class="testi">
-        <p>"support ticket said 'urgnt-prodown-fixnow'. took us 20 minutes to realize that meant 'urgent, prod is down.' worth it."</p>
+        <p>"finance asked why the AI line item dropped 40 pct. i said 'we shrunk it.' they didn't ask again."</p>
         <div class="who"><b>&mdash; Anonymous</b>, on-call engineer</div>
       </div>
     </div>
@@ -219,7 +263,7 @@
       SHRNKR is a satire. No tokens were actually saved. No words survived unharmed.<br>
       A sibling production of <a href="https://badgefor.me">badgefor.me</a>.<br>
       By using this page you agree that "urgnt-prodown-fixnow" is a valid incident report.<br>
-      <span>v0.1.0</span>
+      <span>v0.1.2</span>
     </p>
   </footer>
 </div>

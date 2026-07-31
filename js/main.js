@@ -1,15 +1,3 @@
-// ---- ticker ----
-const tickerMsgs = [
-  'SAVINGS COUNTER: <b>4,281,004</b> tokens "saved" today',
-  'NOW TRENDING: <b>"thursdyPM"</b>',
-  'SHRNKR LEVEL 5 UPTIME: <b>12%</b> comprehensible',
-  'ENGINEER SATISFACTION: <b>declining, as expected</b>',
-  'CFO SATISFACTION: <b>all time high</b>',
-  'VOWELS REMAINING IN PROD: <b>low</b>'
-];
-const tickerEl = document.getElementById('tickerInner');
-tickerEl.innerHTML = (tickerMsgs.concat(tickerMsgs)).map(m => `<span>${m}</span>`).join('');
-
 // ---- hero headline shrink animation ----
 const heroEl = document.getElementById('heroHeadline');
 const words = heroEl.textContent.split(' ');
@@ -22,11 +10,11 @@ setTimeout(() => {
 
 // ---- aggression label ----
 const levels = {
-  1: 'Level 1 — "barely tried"',
-  2: 'Level 2 — "a little unhinged"',
-  3: 'Level 3 — "still technically words"',
-  4: 'Level 4 — "your on-call engineer is worried"',
-  5: 'Level 5 — "one word. always one word."'
+  1: 'Level 1 — "barely trimmed"',
+  2: 'Level 2 — "comfortably lean"',
+  3: 'Level 3 — "noticeably efficient"',
+  4: 'Level 4 — "aggressively optimized"',
+  5: 'Level 5 — "maximum compression"'
 };
 const aggInput = document.getElementById('aggression');
 const aggLabel = document.getElementById('aggressionLabel');
