@@ -1,18 +1,18 @@
-# SQUISH
+# SHRNKR
 
-A satirical static website posing as token-compression middleware for AI agents — SQUISH sits "between you and your AI agent" and mashes every prompt and response into fewer, uglier tokens, Wehadababyitsaboy-style, so your bill goes down and your output goes to hell.
+A satirical static website posing as token-compression middleware for AI agents — SHRNKR sits "between you and your AI agent" and shrinks every prompt and response into fewer, uglier tokens, Wehadababyitsaboy-style, so your bill goes down and your output goes to hell.
 
 **This is satire. No tokens are actually saved. No package is actually published.**
 
-Live site: [squish.dev](https://squish.dev)
+Live site: [shrnkr.dev](https://shrnkr.dev)
 
 ## What it is
 
-SQUISH presents a fake dev-tool product: a pricing page charging per word saved, a live text-squisher demo (drag the aggression slider to 5), fabricated before/after case studies, and testimonials written in increasingly squished text. A sibling production of [badgefor.me](https://badgefor.me).
+SHRNKR presents a fake dev-tool product: a pricing page charging per word saved, a live text-shrinker demo (drag the aggression slider to 5), fabricated before/after case studies, and testimonials written in increasingly shrunken text. A sibling production of [badgefor.me](https://badgefor.me).
 
 ## Pricing
 
-| Plan | Squish level | Price | What survives |
+| Plan | Shrink level | Price | What survives |
 | --- | --- | --- | --- |
 | Free | Level 1 | $0 | Your dignity, mostly |
 | Starter | Level 3 | $29/mo | Most vowels |

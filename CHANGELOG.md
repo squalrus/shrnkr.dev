@@ -2,6 +2,13 @@
 
 User-visible changes, newest first. Follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) format and [semver](https://semver.org/) versioning.
 
+## [0.1.1] — 2026-07-31
+
+### Changed
+
+- **Rebranded SQUISH to SHRNKR.** New name is a squish joke on itself: running "Shrinker" through the site's own level-5 algorithm (keep each word's first letter, strip the rest of its vowels) produces "shrnkr" — chosen after "SQSH" turned out to collide with existing SquashFS compression tools. Brand name, domain (`squish.dev` → `shrnkr.dev`), and the "squish" verb (now "shrink") updated throughout copy, UI text, and code: `squishText()` → `shrinkText()`, `squishBtn`/`runSquish` → `shrinkBtn`/`runShrink`, `.squishword` → `.shrinkword`, install snippet now `npm install shrnkr` / `import { shrink } from 'shrnkr'`. (`index.html`, `css/styles.css`, `js/main.js`, `robots.txt`, `sitemap.xml`, `README.md`, `CONTRIBUTING.md`, `CLAUDE.md`)
+- **Git remote renamed.** `origin` now points at `github.com/squalrus/shrnkr.dev` to match the new name.
+
 ## [0.1.0] — 2026-07-31
 
 ### Added
