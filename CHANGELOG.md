@@ -2,6 +2,14 @@
 
 User-visible changes, newest first. Follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) format and [semver](https://semver.org/) versioning.
 
+## [0.1.2] — 2026-07-31
+
+### Changed
+
+- **Copy rewritten around token savings as a straightforward win.** Hero, examples, features, and testimonials no longer joke about output quality suffering ("engineer now has questions," "on-call engineer is worried," confused clients) — the pitch is now squarely about removing unneeded words to cut token cost, with the compression gimmick kept as proof rather than a punchline about harming readers. "Four proprietary degradations" renamed to "Four proprietary compression passes"; "Confidence Padding" feature replaced with "Redundant Phrase Detection." (`index.html`, `js/main.js`)
+- **Pricing rebuilt as a 1%-of-savings model.** Replaced the flat per-plan pricing table with a scaled fee structure: SHRNKR takes 1% of the token spend it removes, illustrated with a per-level reduction/savings/fee table plus a horizontal bar chart (green = kept savings, red = fee sliver) modeled on a $4,000/mo spend across aggression levels 1–5. (`index.html`, `css/styles.css`)
+- **Removed the scrolling ticker strip.** Dropped the top-of-page ticker (markup, animation, and rotating message list) to simplify the page header. (`index.html`, `css/styles.css`, `js/main.js`)
+
 ## [0.1.1] — 2026-07-31
 
 ### Changed
