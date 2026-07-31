@@ -4,7 +4,9 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-SQUISH is a satirical static website posing as token-compression middleware for AI agents — it "sits between you and your AI agent" and mashes prompts/responses into fewer, uglier tokens (Wehadababyitsaboy-style word-merging), parodying LLM-cost-optimization tooling. Pure HTML/CSS/JS, no build step, no package manager, no framework. A sibling production of [badgefor.me](https://badgefor.me), same repo conventions.
+SHRNKR is a satirical static website posing as token-compression middleware for AI agents — it "sits between you and your AI agent" and shrinks prompts/responses into fewer, uglier tokens (Wehadababyitsaboy-style word-merging), parodying LLM-cost-optimization tooling. Pure HTML/CSS/JS, no build step, no package manager, no framework. A sibling production of [badgefor.me](https://badgefor.me), same repo conventions.
+
+The name is itself a squish joke: run "Shrinker" through the site's own level-5 algorithm (keep each word's first letter, strip the rest of its vowels) and you get "shrnkr".
 
 **Brand voice:** deadpan corporate-speak parody. Don't over-explain jokes. Let the copy breathe.
 
@@ -23,7 +25,7 @@ No deployment pipeline yet. When one is added, follow badgefor.me's pattern (Azu
 Single-page static site. All content lives in [index.html](index.html).
 
 - [css/styles.css](css/styles.css) — all styling via CSS custom properties; no preprocessor
-- [js/main.js](js/main.js) — ticker strip message rotation, hero headline squish-in animation, aggression slider label, and the live squisher demo (`squishText()`: strips punctuation, elides vowels, merges N adjacent words per aggression level, then types the result out character-by-character)
+- [js/main.js](js/main.js) — ticker strip message rotation, hero headline shrink-in animation, aggression slider label, and the live shrinker demo (`shrinkText()`: strips punctuation, elides vowels, merges N adjacent words per aggression level, then types the result out character-by-character)
 - Fonts loaded from Google Fonts (Anton, Archivo Narrow, Courier Prime) — no local font files
 
 The live demo's "stats" (tokens saved, $ saved, readability remaining) are cosmetic — derived from string-length deltas, not any real tokenizer.

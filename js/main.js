@@ -2,7 +2,7 @@
 const tickerMsgs = [
   'SAVINGS COUNTER: <b>4,281,004</b> tokens "saved" today',
   'NOW TRENDING: <b>"thursdyPM"</b>',
-  'SQUISH LEVEL 5 UPTIME: <b>12%</b> comprehensible',
+  'SHRNKR LEVEL 5 UPTIME: <b>12%</b> comprehensible',
   'ENGINEER SATISFACTION: <b>declining, as expected</b>',
   'CFO SATISFACTION: <b>all time high</b>',
   'VOWELS REMAINING IN PROD: <b>low</b>'
@@ -10,12 +10,12 @@ const tickerMsgs = [
 const tickerEl = document.getElementById('tickerInner');
 tickerEl.innerHTML = (tickerMsgs.concat(tickerMsgs)).map(m => `<span>${m}</span>`).join('');
 
-// ---- hero headline squish animation ----
+// ---- hero headline shrink animation ----
 const heroEl = document.getElementById('heroHeadline');
 const words = heroEl.textContent.split(' ');
-heroEl.innerHTML = words.map(w => `<span class="squishword">${w}</span>`).join(' ');
+heroEl.innerHTML = words.map(w => `<span class="shrinkword">${w}</span>`).join(' ');
 setTimeout(() => {
-  document.querySelectorAll('.squishword').forEach((el, i) => {
+  document.querySelectorAll('.shrinkword').forEach((el, i) => {
     setTimeout(() => el.classList.add('done'), i * 120);
   });
 }, 600);
@@ -34,10 +34,10 @@ aggInput.addEventListener('input', () => {
   aggLabel.textContent = levels[aggInput.value];
 });
 
-// ---- squish algorithm ----
+// ---- shrink algorithm ----
 const vowelPattern = /[aeiouAEIOU]/g;
 
-function squishText(text, level) {
+function shrinkText(text, level) {
   let words = text.trim().split(/\s+/).filter(Boolean);
   if (words.length === 0) return '';
 
@@ -85,13 +85,13 @@ function squishText(text, level) {
 
 const inputText = document.getElementById('inputText');
 const outputBox = document.getElementById('outputBox');
-const squishBtn = document.getElementById('squishBtn');
+const shrinkBtn = document.getElementById('shrinkBtn');
 const statRow = document.getElementById('statRow');
 const statTokens = document.getElementById('statTokens');
 const statMoney = document.getElementById('statMoney');
 const statReadability = document.getElementById('statReadability');
 
-function runSquish() {
+function runShrink() {
   const original = inputText.value;
   const level = parseInt(aggInput.value, 10);
   if (!original.trim()) {
@@ -99,25 +99,25 @@ function runSquish() {
     statRow.style.display = 'none';
     return;
   }
-  const squished = squishText(original, level);
+  const shrunk = shrinkText(original, level);
 
   outputBox.textContent = '';
   let i = 0;
-  squishBtn.disabled = true;
+  shrinkBtn.disabled = true;
   const typer = setInterval(() => {
-    outputBox.textContent = squished.slice(0, i);
+    outputBox.textContent = shrunk.slice(0, i);
     const cursor = document.createElement('span');
     cursor.className = 'cursor';
     outputBox.appendChild(cursor);
     i++;
-    if (i > squished.length) {
+    if (i > shrunk.length) {
       clearInterval(typer);
-      squishBtn.disabled = false;
+      shrinkBtn.disabled = false;
     }
   }, 12);
 
   const origLen = original.length;
-  const newLen = squished.length;
+  const newLen = shrunk.length;
   const pctSaved = Math.max(0, Math.round((1 - newLen / Math.max(origLen, 1)) * 100));
   const readability = Math.max(2, 100 - pctSaved - level * 6);
   const money = (pctSaved / 100 * 0.014 * (origLen / 4)).toFixed(4);
@@ -128,5 +128,5 @@ function runSquish() {
   statRow.style.display = 'flex';
 }
 
-squishBtn.addEventListener('click', runSquish);
-window.addEventListener('load', () => setTimeout(runSquish, 1400));
+shrinkBtn.addEventListener('click', runShrink);
+window.addEventListener('load', () => setTimeout(runShrink, 1400));

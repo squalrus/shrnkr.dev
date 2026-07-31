@@ -1,4 +1,4 @@
-# Contributing to SQUISH
+# Contributing to SHRNKR
 
 ## Running locally
 
@@ -7,10 +7,10 @@ Open `index.html` directly in a browser. No server, no build step, no package ma
 ## Project structure
 
 ```text
-squish.dev/
+shrnkr.dev/
 ├── index.html          # All content lives here
 ├── css/styles.css      # Styling via CSS custom properties; receipt/telegram theme
-├── js/main.js          # Ticker, hero squish animation, aggression slider, live squisher demo
+├── js/main.js          # Ticker, hero shrink animation, aggression slider, live shrinker demo
 ├── favicon.svg
 ├── robots.txt          # Crawler rules + sitemap pointer
 ├── sitemap.xml         # Sitemap for search engines

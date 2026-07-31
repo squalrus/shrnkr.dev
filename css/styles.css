@@ -94,12 +94,12 @@ nav a:hover{border-bottom:1px solid var(--ink);}
   margin:0 0 18px;
   letter-spacing:0.5px;
 }
-.hero h1 .squishword{
+.hero h1 .shrinkword{
   display:inline-block;
   transition:letter-spacing 1.4s ease, transform 1.4s ease;
   letter-spacing:0.5px;
 }
-.hero h1 .squishword.done{
+.hero h1 .shrinkword.done{
   letter-spacing:-4px;
   transform:scaleX(0.82);
   color:var(--red);
