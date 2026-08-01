@@ -378,7 +378,7 @@ textarea:focus, input:focus{outline:2px solid var(--green);outline-offset:1px;}
 /* ---------- footer ---------- */
 footer{border-top:1px solid var(--border);}
 .footer-inner{
-  padding:36px 0;display:flex;justify-content:space-between;align-items:center;
+  padding:36px 32px;display:flex;justify-content:space-between;align-items:center;
   flex-wrap:wrap;gap:16px;
 }
 .footer-logo{display:flex;align-items:center;gap:10px;}
@@ -388,9 +388,6 @@ footer{border-top:1px solid var(--border);}
   display:flex;align-items:center;justify-content:center;
 }
 .footer-logo-text{font-size:13px;color:var(--ink-soft);}
-.footer-tagline{font-size:12px;color:var(--ink-soft);margin-top:2px;}
-.footer-tagline a{color:var(--ink-soft);}
-.footer-tagline a:hover{color:var(--green-dark);}
 .footer-note{font-size:12.5px;color:var(--ink-soft);text-align:right;line-height:1.7;}
 .footer-note a{color:var(--ink-soft);}
 .footer-note a:hover{color:var(--green-dark);}
