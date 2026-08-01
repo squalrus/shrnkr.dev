@@ -13,241 +13,232 @@
 <meta property="og:title" content="SHRNKR — Middleware That Deletes The Words You Didn't Need">
 <meta property="og:description" content="SHRNKR sits between you and your AI agent and strips every prompt and response down to the words carrying the meaning — fewer tokens in, fewer tokens out, lower bill, every time.">
 <meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://shrnkr.dev/assets/images/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
 
-<meta name="twitter:card" content="summary">
+<meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="SHRNKR — Middleware That Deletes The Words You Didn't Need">
 <meta name="twitter:description" content="SHRNKR sits between you and your AI agent and strips every prompt and response down to the words carrying the meaning — fewer tokens in, fewer tokens out, lower bill, every time.">
+<meta name="twitter:image" content="https://shrnkr.dev/assets/images/og-image.png">
 
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
 
 <link rel="preconnect" href="https://fonts.googleapis.com/">
 <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Anton&family=Archivo+Narrow:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Courier+Prime:wght@400;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
 
-<div class="wrap">
-  <header>
-    <div class="brand-row">
-      <div class="brand">SHRNKR<sup>&reg;</sup></div>
-      <nav>
-        <a href="#demo">Demo</a>
-        <a href="#examples">Examples</a>
-        <a href="#pricing">Pricing</a>
-        <a href="#install">Install</a>
-      </nav>
+<header>
+  <div class="wrap brand-row">
+    <div class="logo">
+      <div class="logo-icon">&raquo;&laquo;</div>
+      <div class="brand">shrnkr</div>
     </div>
-  </header>
+    <nav>
+      <a href="#demo">Demo</a>
+      <a href="#how">How it works</a>
+      <a href="#results">Results</a>
+      <a href="#pricing">Pricing</a>
+      <a href="#install" class="nav-cta">Get started</a>
+    </nav>
+  </div>
+</header>
+
+<div class="wrap">
 
   <section class="hero">
-    <div class="stamp">PATENT PENDING &middot; TOKENS DELETED DAILY</div>
-    <h1 id="heroHeadline">STOP PAYING PER WORD</h1>
-    <p class="sub">SHRNKR sits between you and your AI agent and removes every word your prompts and responses don't need to get the job done. Fewer words in, fewer words out, fewer tokens billed. It's the most obvious cost optimization in AI, and somehow nobody's shipping it but us.</p>
+    <div class="hero-badge"><span class="hero-badge-dot"></span>New — Meat Grinder (lvl 5) compression is now generally available</div>
+    <h1 id="heroHeadline">Pay for meaning, not formatting.</h1>
+    <p class="sub">SHRNKR is a drop-in compression layer between you and your AI agent. Every prompt and response is rewritten into dramatically fewer tokens before it's billed — so the number on your invoice goes down. Immediately. Measurably.</p>
     <div class="cta-row">
-      <a class="btn" href="#demo">Try the shrinker</a>
-      <a class="btn ghost" href="#install">npm install shrnkr</a>
+      <a class="btn" href="#demo">Start shrinking — free</a>
+      <a class="btn ghost" href="#install">$ npm install shrnkr</a>
     </div>
-    <div class="install-hint">Trusted by 3 companies. 1 of them is us.</div>
+    <div class="hero-stats">
+      <div><div class="hero-stat-value">38%</div><div class="hero-stat-label">avg. token reduction</div></div>
+      <div><div class="hero-stat-value">2 lines</div><div class="hero-stat-label">to integrate</div></div>
+      <div><div class="hero-stat-value">3</div><div class="hero-stat-label">companies trust us. 1 is us.</div></div>
+    </div>
   </section>
 
   <section id="demo">
-    <div class="eyebrow">LIVE DEMO</div>
-    <h2>Shrink anything</h2>
-    <div class="receipt">
-      <textarea id="inputText" maxlength="600">We had a baby, it's a boy, we're thrilled to announce our new AI feature is ready for production deployment next quarter.</textarea>
-      <div class="demo-controls">
-        <label for="aggression">Aggression</label>
-        <input type="range" id="aggression" min="1" max="5" value="3">
-        <label id="aggressionLabel" class="mono">Level 3 — "noticeably efficient"</label>
+    <div class="section-head center">
+      <div class="eyebrow">Live demo</div>
+      <h2>See your savings in real time</h2>
+      <p>Paste anything your agent might say. Watch it become cheaper.</p>
+    </div>
+    <div class="demo-card">
+      <div class="demo-grid">
+        <div>
+          <div class="demo-col-label">Input — billed at full price</div>
+          <textarea id="inputText" maxlength="600">We had a baby, it's a boy, we're thrilled to announce our new AI feature is ready for production deployment next quarter.</textarea>
+        </div>
+        <div>
+          <div class="demo-col-label output">Output — what you pay for</div>
+          <div class="demo-output" id="outputBox"><span class="cursor"></span></div>
+        </div>
       </div>
-      <div class="cta-row" style="justify-content:flex-start;margin-bottom:0;">
+      <div class="demo-controls">
+        <label for="aggression">Compression</label>
+        <input type="range" id="aggression" min="1" max="5" value="3">
+        <span id="aggressionLabel" class="level-label mono">Vacuum Sealer (lvl 3)</span>
+        <div class="spacer"></div>
         <button class="btn" id="shrinkBtn">Shrink it &rarr;</button>
       </div>
-      <div class="output-box" id="outputBox"><span class="cursor"></span></div>
-      <div class="stat-row" id="statRow" style="display:none;">
-        <div class="stat"><b id="statTokens">0%</b>tokens "saved"</div>
-        <div class="stat"><b id="statMoney">$0.0000</b>hypothetical savings</div>
-        <div class="stat"><b id="statReadability">100%</b>readability remaining</div>
+      <div class="demo-stats" id="statRow" style="display:none;">
+        <div class="demo-stat"><div class="demo-stat-value" id="statTokens">0%</div><div class="demo-stat-label">tokens saved</div></div>
+        <div class="demo-stat"><div class="demo-stat-value" id="statMoney">$0.0000</div><div class="demo-stat-label">projected savings</div></div>
+        <div class="demo-stat neutral"><div class="demo-stat-value" id="statReadability">100%</div><div class="demo-stat-label">readability retained</div></div>
       </div>
     </div>
   </section>
 
-  <section id="examples">
-    <div class="eyebrow">CASE STUDIES</div>
-    <h2>Real optimized output*</h2>
-    <p style="color:var(--ink-soft);margin-top:-14px;margin-bottom:26px;">*Not real. Generated by us, to sell you this.</p>
-
-    <div class="example">
-      <div class="example-half">
-        <div class="example-label before">Before SHRNKR</div>
-        <div class="example-text">"Sure — here are three ways to reduce your AWS bill: right-size your EC2 instances, move cold data to S3 Glacier, and set up billing alerts."</div>
-      </div>
-      <div class="example-half">
-        <div class="example-label after">After SHRNKR (Level 4)</div>
-        <div class="example-text after">"sure3wayscutAWSbill:rightsizeEC2&rarr;movecoldS3Glacier&rarr;billalerts.done"</div>
-        <div class="example-tag">&darr; 41% tokens &middot; same three recommendations, none of the padding</div>
-      </div>
+  <section id="how">
+    <div class="section-head">
+      <div class="eyebrow">How it works</div>
+      <h2>Six proprietary compression passes</h2>
+      <p>Each pass removes cost. None of them removes meaning. That's the whole trick.</p>
     </div>
-
-    <div class="example">
-      <div class="example-half">
-        <div class="example-label before">Before SHRNKR</div>
-        <div class="example-text">"I'd recommend scheduling the client call for Thursday afternoon, since Priya mentioned she's traveling Wednesday and won't be back until late morning."</div>
-      </div>
-      <div class="example-half">
-        <div class="example-label after">After SHRNKR (Level 3)</div>
-        <div class="example-text after">"schedul clientcall thursdyPM — priya travln wed bck latemrn"</div>
-        <div class="example-tag">&darr; 33% tokens &middot; meeting still lands Thursday afternoon</div>
-      </div>
-    </div>
-
-    <div class="example">
-      <div class="example-half">
-        <div class="example-label before">Before SHRNKR</div>
-        <div class="example-text">"The quarterly report shows revenue up 12%, driven primarily by growth in the enterprise segment, though churn ticked up slightly in SMB."</div>
-      </div>
-      <div class="example-half">
-        <div class="example-label after">After SHRNKR (Level 5 — Enterprise)</div>
-        <div class="example-text after">"revup12pctentrprsegchurnupSMBlol"</div>
-        <div class="example-tag">&darr; 68% tokens &middot; full report, quarter the size</div>
-      </div>
-    </div>
-  </section>
-
-  <section>
-    <div class="eyebrow">HOW IT WORKS</div>
-    <h2>Four proprietary compression passes</h2>
-    <div class="feature-list">
-      <div class="feature">
+    <div class="features-grid">
+      <div class="feature-card">
+        <div class="feature-num">01</div>
         <h3>Semantic Concatenation Engine&trade;</h3>
         <p>Fuses adjacent words into a single compact token — same meaning, fewer characters on the invoice.</p>
       </div>
-      <div class="feature">
+      <div class="feature-card">
+        <div class="feature-num">02</div>
         <h3>Adaptive Vowel Elision</h3>
         <p>Drops the vowels your model never needed to infer intent, scaled to how aggressively you want to save.</p>
       </div>
-      <div class="feature">
+      <div class="feature-card">
+        <div class="feature-num">03</div>
         <h3>Sentence Flattening</h3>
         <p>Strips punctuation tokens that add cost without adding information.</p>
       </div>
-      <div class="feature">
+      <div class="feature-card">
+        <div class="feature-num">04</div>
         <h3>Redundant Phrase Detection</h3>
         <p>Flags filler like "just wanted to check in" and "to be honest" and removes it before it ever reaches your model.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-num">05</div>
+        <h3>Symbol Substitution</h3>
+        <p>Swaps common words for compact symbols your model already understands — "move" becomes "→", "and" becomes "&amp;". Same instruction, fewer characters on the invoice.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-num">06</div>
+        <h3>JDSL&trade;</h3>
+        <p>Just Drop Some Letters. Once your response is squished into a single word, JDSL deletes every 4th character outright — no exceptions. Engages exclusively at Meat Grinder (lvl 5) tier.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="results">
+    <div class="section-head">
+      <div class="eyebrow">Results</div>
+      <h2>Optimized output, in production</h2>
+      <p>Representative examples, prepared by our team for illustrative purposes.</p>
+    </div>
+    <div class="results-list">
+      <div class="result-card">
+        <div class="result-before">
+          <div class="result-label">Before</div>
+          <div class="result-before-text">"Sure — here are three ways to reduce your AWS bill: right-size your EC2 instances, move cold data to S3 Glacier, and set up billing alerts."</div>
+        </div>
+        <div class="result-after">
+          <div class="result-label after">After · Pressure Cooker (lvl 4)</div>
+          <div class="result-snippet">Sr—hrarethrwaystordcurAWSbllrght-szurEC2instnces→colddattoS3Glcer&amp;setupbllngalrts</div>
+          <div class="result-meta"><span class="saving">&darr; 42% chars</span> &middot; same three recommendations, none of the padding</div>
+        </div>
+      </div>
+      <div class="result-card">
+        <div class="result-before">
+          <div class="result-label">Before</div>
+          <div class="result-before-text">"I'd recommend scheduling the client call for Thursday afternoon, since Priya mentioned she's traveling Wednesday and won't be back until late morning."</div>
+        </div>
+        <div class="result-after">
+          <div class="result-label after">After · Vacuum Sealer (lvl 3)</div>
+          <div class="result-snippet">Idrecommnd schdlingthe clientcll forThursday aftrnonbc Pryamentioned shstravlng Wednsdy&amp; wntbe backuntl latemrnng</div>
+          <div class="result-meta"><span class="saving">&darr; 25% chars</span> &middot; meeting still lands Thursday afternoon</div>
+        </div>
+      </div>
+      <div class="result-card">
+        <div class="result-before">
+          <div class="result-label">Before</div>
+          <div class="result-before-text">"The quarterly report shows revenue up 12%, driven primarily by growth in the enterprise segment, though churn ticked up slightly in SMB."</div>
+        </div>
+        <div class="result-after">
+          <div class="result-label after">After · Meat Grinder (lvl 5)</div>
+          <div class="result-snippet">thertryrptshsrenup2%dvnpmrlbygwthnthentprsgmnthgchrtckupsghtyinmb</div>
+          <div class="result-meta"><span class="saving">&darr; 52% chars</span> &middot; full report, roughly half the size</div>
+        </div>
       </div>
     </div>
   </section>
 
   <section id="pricing">
-    <div class="eyebrow">RATES</div>
-    <h2>We take 1% of what we save you</h2>
-    <p style="color:var(--ink-soft);margin-top:-14px;margin-bottom:26px;max-width:600px;">No subscription. No per-seat fee. SHRNKR's entire pricing model is 1% of the token spend it removes from your bill. The harder it shrinks, the more you keep. Modeled below on a $4,000/mo token spend.</p>
-
-    <table class="rates">
-      <tbody>
-      <tr>
-        <th>Level</th>
-        <th>Token reduction</th>
-        <th>Monthly savings</th>
-        <th>SHRNKR's fee (1%)</th>
-        <th>You keep</th>
-      </tr>
-      <tr>
-        <td>Level 1</td>
-        <td>8%</td>
-        <td>$320.00</td>
-        <td class="price">$3.20</td>
-        <td>$316.80</td>
-      </tr>
-      <tr>
-        <td>Level 2</td>
-        <td>19%</td>
-        <td>$760.00</td>
-        <td class="price">$7.60</td>
-        <td>$752.40</td>
-      </tr>
-      <tr>
-        <td>Level 3</td>
-        <td>33%</td>
-        <td>$1,320.00</td>
-        <td class="price">$13.20</td>
-        <td>$1,306.80</td>
-      </tr>
-      <tr>
-        <td>Level 4</td>
-        <td>41%</td>
-        <td>$1,640.00</td>
-        <td class="price">$16.40</td>
-        <td>$1,623.60</td>
-      </tr>
-      <tr>
-        <td>Level 5</td>
-        <td>68%</td>
-        <td>$2,720.00</td>
-        <td class="price">$27.20</td>
-        <td>$2,692.80</td>
-      </tr>
-      </tbody>
-    </table>
-
-    <div class="fee-bars mono">
-      <div class="fee-bar-row">
-        <div class="label">Level 1</div>
-        <div class="fee-bar-track"><div class="fee-bar-fill" style="width:12%;"><div class="fee-bar-keep"></div><div class="fee-bar-fee"></div></div></div>
-        <div class="amount">$316.80 kept</div>
+    <div class="section-head center">
+      <div class="eyebrow">Pricing</div>
+      <h2>We take 1% of what we save you</h2>
+      <p>No subscription. No per-seat fee. SHRNKR's entire price is 1% of the token spend it removes from your bill. The harder it shrinks, the more you keep.</p>
+    </div>
+    <div class="pricing-card">
+      <div class="pricing-spend-row">
+        <label for="spend">Your monthly token spend</label>
+        <input type="range" id="spend" min="500" max="20000" step="250" value="4000">
+        <span class="pricing-spend-value"><span id="spendLabel">$4,000</span><span>/mo</span></span>
       </div>
-      <div class="fee-bar-row">
-        <div class="label">Level 2</div>
-        <div class="fee-bar-track"><div class="fee-bar-fill" style="width:28%;"><div class="fee-bar-keep"></div><div class="fee-bar-fee"></div></div></div>
-        <div class="amount">$752.40 kept</div>
-      </div>
-      <div class="fee-bar-row">
-        <div class="label">Level 3</div>
-        <div class="fee-bar-track"><div class="fee-bar-fill" style="width:49%;"><div class="fee-bar-keep"></div><div class="fee-bar-fee"></div></div></div>
-        <div class="amount">$1,306.80 kept</div>
-      </div>
-      <div class="fee-bar-row">
-        <div class="label">Level 4</div>
-        <div class="fee-bar-track"><div class="fee-bar-fill" style="width:60%;"><div class="fee-bar-keep"></div><div class="fee-bar-fee"></div></div></div>
-        <div class="amount">$1,623.60 kept</div>
-      </div>
-      <div class="fee-bar-row">
-        <div class="label">Level 5</div>
-        <div class="fee-bar-track"><div class="fee-bar-fill" style="width:100%;"><div class="fee-bar-keep"></div><div class="fee-bar-fee"></div></div></div>
-        <div class="amount">$2,692.80 kept</div>
-      </div>
-      <div class="fee-bar-legend">
+      <div class="pricing-rows" id="pricingRows"></div>
+      <div class="pricing-legend">
         <span><i class="swatch keep"></i>You keep (99% of savings)</span>
         <span><i class="swatch fee"></i>SHRNKR's fee (1% of savings)</span>
       </div>
+      <div class="pricing-example mono" id="pricingExample"></div>
     </div>
-
-    <p class="mono" style="font-size:13px;color:var(--ink-soft);margin-top:22px;">Worked example: spend $4,000/mo, run Level 4, cut 41% of your tokens. That's $1,640 saved. SHRNKR takes $16.40 of it. You keep $1,623.60. Same formula at any spend, any level.</p>
   </section>
 
   <section>
-    <div class="eyebrow">TESTIMONIALS</div>
-    <h2>What CTOs are typing</h2>
-    <div class="testimonials">
-      <div class="testi">
-        <p>"cutourtokenspendby41pctinweek1.didntchangeasingleprompttemplate."</p>
-        <div class="who"><b>&mdash; Dana R.</b>, VP Eng at a Series B</div>
+    <div class="section-head center">
+      <div class="eyebrow">Customers</div>
+      <h2>What CTOs are typing</h2>
+    </div>
+    <div class="testimonials-grid">
+      <div class="testimonial-card">
+        <p>"Wecutourtknspndby41%inwkoneWeddntchangasnglprmpttmplt"</p>
+        <div class="testimonial-who">
+          <div class="testimonial-avatar">DR</div>
+          <div><div class="testimonial-name">Dana R.</div><div class="testimonial-role">VP Eng at a Series B</div></div>
+        </div>
       </div>
-      <div class="testi">
+      <div class="testimonial-card">
         <p>"we approved the pilot expecting a rounding error in savings. it was not a rounding error."</p>
-        <div class="who"><b>&mdash; Priyank M.</b>, Founder</div>
+        <div class="testimonial-who">
+          <div class="testimonial-avatar">PM</div>
+          <div><div class="testimonial-name">Priyank M.</div><div class="testimonial-role">Founder</div></div>
+        </div>
       </div>
-      <div class="testi">
+      <div class="testimonial-card">
         <p>"finance asked why the AI line item dropped 40 pct. i said 'we shrunk it.' they didn't ask again."</p>
-        <div class="who"><b>&mdash; Anonymous</b>, on-call engineer</div>
+        <div class="testimonial-who">
+          <div class="testimonial-avatar">A</div>
+          <div><div class="testimonial-name">Anonymous</div><div class="testimonial-role">On-call engineer</div></div>
+        </div>
       </div>
     </div>
   </section>
 
-  <section id="install" style="border-bottom:none;">
-    <div class="eyebrow">INSTALL</div>
-    <h2>Two lines. That's it.</h2>
-    <div class="code-block">
+  <section id="install" style="padding-bottom:96px;">
+    <div class="install-block">
+      <div class="install-copy">
+        <div class="eyebrow">Install</div>
+        <h2>Two lines. That's the whole integration.</h2>
+        <p>Wrap any agent call. Savings begin on the next response — no config, no migration, no going back.</p>
+        <a href="#demo" class="btn">Try it first</a>
+      </div>
+      <div class="code-block">
 <span class="c3">$</span> npm install shrnkr<br>
 <br>
 <span class="c1">import</span> { shrink } <span class="c1">from</span> <span class="c2">'shrnkr'</span>;<br>
@@ -255,19 +246,27 @@
 <span class="c3">// wrap any call to your AI agent</span><br>
 <span class="c1">const</span> reply = <span class="c1">await</span> shrink(agent.respond(prompt), { level: <span class="c2">3</span> });<br>
 <span class="c3">// reply: "sure,hersyourupdatd summry."</span>
+      </div>
     </div>
   </section>
 
-  <footer>
-    <p>
-      SHRNKR is a satire. No tokens were actually saved. No words survived unharmed.<br>
-      A sibling production of <a href="https://badgefor.me">badgefor.me</a>.<br>
-      By using this page you agree that "urgnt-prodown-fixnow" is a valid incident report.<br>
-      <span>v0.1.2</span>
-    </p>
-  </footer>
 </div>
 
+<footer>
+  <div class="wrap footer-inner">
+    <div class="footer-logo">
+      <div class="footer-logo-icon">&raquo;&laquo;</div>
+      <span class="footer-logo-text mono">shrnkr &middot; <span>v0.2.0</span></span>
+    </div>
+    <div class="footer-note">
+      SHRNKR is a satire. No tokens were actually saved. No words survived unharmed.<br>
+      A sibling production of <a href="https://badgefor.me">badgefor.me</a>.<br>
+      By using this page you agree that "urgnt-prodown-fixnow" is a valid incident report.
+    </div>
+  </div>
+</footer>
+
+<script src="js/shrink.js"></script>
 <script src="js/main.js"></script>
 </body>
 </html>

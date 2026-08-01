@@ -1,0 +1,252 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8" />
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    width: 1200px;
+    height: 630px;
+    overflow: hidden;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    background: #14161A;
+    color: #fff;
+    position: relative;
+  }
+
+  /* grid lines background */
+  .bg-grid {
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(255,255,255,0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.04) 1px, transparent 1px);
+    background-size: 60px 60px;
+  }
+
+  /* mint accent bar top */
+  .accent-bar {
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 5px;
+    background: linear-gradient(90deg, #0E9A73, #7FE3BC, #0E9A73);
+  }
+
+  /* main content */
+  .content {
+    position: absolute;
+    left: 72px;
+    top: 50%;
+    transform: translateY(-50%);
+    max-width: 660px;
+  }
+
+  .eyebrow {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: #7FE3BC;
+    margin-bottom: 22px;
+    font-family: ui-monospace, "Cascadia Code", "SF Mono", monospace;
+  }
+
+  .eyebrow .dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: #0E9A73;
+    box-shadow: 0 0 8px #0E9A73;
+  }
+
+  .brand-row {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 20px;
+  }
+
+  .logo-icon {
+    width: 56px;
+    height: 56px;
+    border-radius: 14px;
+    background: #7FE3BC;
+    color: #14161A;
+    font-family: ui-monospace, "Cascadia Code", "SF Mono", monospace;
+    font-size: 26px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .brand {
+    font-size: 78px;
+    font-weight: 800;
+    line-height: 1;
+    letter-spacing: -2px;
+    color: #fff;
+  }
+
+  .tagline {
+    font-size: 26px;
+    font-weight: 400;
+    color: rgba(255,255,255,0.65);
+    margin-bottom: 36px;
+    line-height: 1.4;
+  }
+
+  /* fee pill */
+  .pricing {
+    display: inline-flex;
+    align-items: center;
+    gap: 14px;
+    background: rgba(255,255,255,0.07);
+    border: 1px solid rgba(255,255,255,0.14);
+    border-radius: 12px;
+    padding: 14px 22px;
+    backdrop-filter: blur(4px);
+  }
+
+  .pricing-label {
+    font-size: 13px;
+    color: rgba(255,255,255,0.5);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: 600;
+    font-family: ui-monospace, "Cascadia Code", "SF Mono", monospace;
+  }
+
+  .pricing-divider {
+    width: 1px;
+    height: 28px;
+    background: rgba(255,255,255,0.2);
+  }
+
+  .pricing-amount {
+    font-size: 32px;
+    font-weight: 800;
+    color: #fff;
+    letter-spacing: -0.5px;
+  }
+
+  .pricing-per {
+    font-size: 15px;
+    color: rgba(255,255,255,0.5);
+    font-weight: 400;
+  }
+
+  /* testimonial card illustration — a real quote, run through the real algorithm */
+  .testimonial-card {
+    position: absolute;
+    right: 84px;
+    top: 50%;
+    transform: translateY(-50%) rotate(-4deg);
+    width: 340px;
+    border-radius: 16px;
+    background: #FAFAF8;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.5), 0 0 0 1px rgba(255,255,255,0.05);
+    padding: 26px 26px 22px;
+  }
+
+  .testimonial-quote {
+    font-family: ui-monospace, "Cascadia Code", "SF Mono", monospace;
+    font-size: 15px;
+    line-height: 1.65;
+    color: #14161A;
+    word-break: break-all;
+    margin-bottom: 18px;
+  }
+
+  .testimonial-who {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .testimonial-avatar {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: #E9F6F0;
+    color: #0B7D5E;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-weight: 700;
+    font-size: 13px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .testimonial-name {
+    font-size: 13.5px;
+    font-weight: 700;
+    color: #14161A;
+  }
+
+  .testimonial-role {
+    font-size: 12.5px;
+    color: #5A5F68;
+  }
+
+  .scanner-line {
+    position: absolute;
+    right: 444px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 40px;
+    height: 200px;
+    background: linear-gradient(to bottom, transparent, rgba(14,154,115,0.12), rgba(14,154,115,0.35), rgba(14,154,115,0.12), transparent);
+  }
+
+  /* domain label bottom right */
+  .domain {
+    position: absolute;
+    bottom: 28px;
+    right: 40px;
+    font-size: 13px;
+    color: rgba(255,255,255,0.25);
+    letter-spacing: 1px;
+    font-family: ui-monospace, "Cascadia Code", "SF Mono", monospace;
+  }
+</style>
+</head>
+<body>
+  <div class="bg-grid"></div>
+  <div class="accent-bar"></div>
+
+  <div class="content">
+    <div class="eyebrow"><span class="dot"></span>Token-Compression Middleware</div>
+    <div class="brand-row">
+      <div class="logo-icon">&raquo;&laquo;</div>
+      <div class="brand">SHRNKR</div>
+    </div>
+    <div class="tagline">Pay for meaning,<br>not formatting.</div>
+    <div class="pricing">
+      <div class="pricing-label">Our fee</div>
+      <div class="pricing-divider"></div>
+      <div class="pricing-amount">1%</div>
+      <div class="pricing-per">of what we save you</div>
+    </div>
+  </div>
+
+  <div class="scanner-line"></div>
+
+  <div class="testimonial-card">
+    <div class="testimonial-quote">"Wecutourtknspndby41%inwkoneWeddntchangasnglprmpttmplt"</div>
+    <div class="testimonial-who">
+      <div class="testimonial-avatar">DR</div>
+      <div>
+        <div class="testimonial-name">Dana R.</div>
+        <div class="testimonial-role">VP Eng at a Series B</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="domain">shrnkr.dev</div>
+</body>
+</html>

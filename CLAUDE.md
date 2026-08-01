@@ -6,7 +6,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 SHRNKR is a satirical static website posing as token-compression middleware for AI agents — it "sits between you and your AI agent" and shrinks prompts/responses into fewer, uglier tokens (Wehadababyitsaboy-style word-merging), parodying LLM-cost-optimization tooling. Pure HTML/CSS/JS, no build step, no package manager, no framework. A sibling production of [badgefor.me](https://badgefor.me), same repo conventions.
 
-The name is itself a squish joke: run "Shrinker" through the site's own level-5 algorithm (keep each word's first letter, strip the rest of its vowels) and you get "shrnkr".
+The name is itself a squish joke: running "Shrinker" through the original level-5 algorithm (keep each word's first letter, strip the rest of its vowels) produced "shrnkr" — the origin of the brand name. Note: since JDSL was added (level 5 now also deletes every 4th character, no exceptions), running "Shrinker" through the *current* algorithm no longer reproduces "shrnkr" exactly (typically "shrkr" or "shrker") — the name-origin claim is historical, not a live guarantee.
 
 **Brand voice:** deadpan corporate-speak parody. Don't over-explain jokes. Let the copy breathe.
 
@@ -14,32 +14,43 @@ The name is itself a squish joke: run "Shrinker" through the site's own level-5 
 
 ## Running Locally
 
-Open `index.html` directly in a browser — no server required. There are no build, lint, or test commands.
+Open `index.html` directly in a browser — no server required. There are no build or lint commands.
+
+## Testing
+
+The shrink algorithm (`shrinkText()`, level names Garlic Press/Panini Press/Vacuum Sealer/Pressure Cooker/Meat Grinder for levels 1–5) lives in [js/shrink.js](js/shrink.js), a plain global script with no DOM dependency and an injectable `rng` parameter (defaults to `Math.random`), so it can be required from Node for tests without a browser. Pipeline stages, in order: redundant phrase detection (deletes pure filler like "to be honest"; shortens wordy-but-meaningful phrases like "in order to" → "to"), punctuation stripping, symbol substitution (common words → compact symbols, e.g. "move" → "→", "and" → "&"), adaptive vowel elision, word merging, and — level 5 only — JDSL ("Just Drop Some Letters"), which deletes every 4th character of the final merged string outright regardless of what it is.
+
+- `node --test tests/shrink.test.js` — correctness assertions (deterministic via a seeded RNG). Run the file directly; `node --test tests/` has a path-resolution quirk on Windows/Git Bash in this repo and fails to discover files that way.
+- `node --test tests/results-copy.test.js` — pins the hand-placed "before/after" snippets in index.html's Results section to real `shrinkText(text, level, seed)` output, so a future algorithm change that silently makes that copy stale gets caught instead of shipping unnoticed. If you change `js/shrink.js`, regenerate these snippets (see the `(text, level, seed)` tuples in the test file) and update both the test and index.html together.
+- `node tests/compare-levels.js` — diagnostic report, not assertions. Prints every level's output for a set of sample texts side by side with a level 4 vs level 5 similarity score. JDSL is what keeps level 4 and 5 meaningfully different (~82–83% similar, notably shorter) instead of converging to near-identical output on typical input, which is what happened before JDSL existed (levels 4/5 previously only differed by `vowelKeepChance`, 0.3 vs 0.1, since merge-group size is a no-op once both join chunks with `''`).
 
 ## Deployment
 
-No deployment pipeline yet. When one is added, follow badgefor.me's pattern (Azure Static Web Apps via GitHub Actions).
+Pushes to `main` auto-deploy to Azure Static Web Apps via GitHub Actions (`.github/workflows/azure-static-web-apps-agreeable-cliff-03e64ea1e.yml`), mirroring badgefor.me's pattern. PRs get preview environments; closing a PR tears the preview down.
 
 ## Architecture
 
 Single-page static site. All content lives in [index.html](index.html).
 
 - [css/styles.css](css/styles.css) — all styling via CSS custom properties; no preprocessor
-- [js/main.js](js/main.js) — ticker strip message rotation, hero headline shrink-in animation, aggression slider label, and the live shrinker demo (`shrinkText()`: strips punctuation, elides vowels, merges N adjacent words per aggression level, then types the result out character-by-character)
-- Fonts loaded from Google Fonts (Anton, Archivo Narrow, Courier Prime) — no local font files
+- [js/shrink.js](js/shrink.js) — `shrinkText()`, the full compression pipeline (phrase detection, punctuation stripping, symbol substitution, vowel elision, word merging, level-5 JDSL — see Testing below for details). DOM-free and separately requireable so it's testable from Node.
+- [js/main.js](js/main.js) — aggression slider label, the live shrinker demo (calls `shrinkText()`, types the result out character-by-character), and the pricing section's spend slider (recomputes the per-level reduction table and worked example on input)
+- [favicon.svg](favicon.svg) — dark rounded square with mint converging chevrons, matching the header/footer logo mark
+- [assets/og-template.html](assets/og-template.html) — source for `assets/images/og-image.png` (1200×630 Open Graph image), rendered via headless Chrome screenshot (see CONTRIBUTING.md). Not linked from the live site; a build artifact only regenerated by hand.
+- Fonts loaded from Google Fonts (Space Grotesk, IBM Plex Sans, JetBrains Mono) — no local font files
 
-The live demo's "stats" (tokens saved, $ saved, readability remaining) are cosmetic — derived from string-length deltas, not any real tokenizer.
+The live demo's "stats" (tokens saved, $ saved, readability remaining) are cosmetic — derived from string-length deltas, not any real tokenizer. The pricing table's dollar figures are likewise derived client-side from a fixed reduction-per-level table, not any real usage data.
 
 ## Version tracking
 
 Version is derived from CHANGELOG.md — the latest `## [X.Y.Z]` heading is the current version. No separate version file is maintained.
 
-The footer in `index.html` displays the version as a `<span>` in `footer p` (e.g. `<span>v0.1.0</span>`). **Update this span on every release** to match the new version.
+The footer in `index.html` displays the version as a `<span>` inside `.footer-logo-text` (e.g. `<span>v0.1.0</span>`). **Update this span on every release** to match the new version.
 
 ## Design System
 
-- **Theme:** warm paper/receipt — `--paper: #EFE9DB` / `--paper-dim: #E4DCC8` backgrounds; `--ink: #1C1B18` / `--ink-soft: #4A463D` text
-- **Accent:** `--red: #C0212B` (stamps, prices, "after" state); `--green: #35633B` (terminal/output text, savings); `--amber: #C87F0A` (tags)
-- **Type:** `Anton` for display headings (h1/h2/brand/prices); `Archivo Narrow` for body copy; `Courier Prime` (`.mono`) for labels, nav, stats, and code blocks
-- **Motifs:** dashed `1px` section dividers; scrolling ticker strip at the top; receipt-style `.receipt` demo box with a perforated-edge illusion via radial-gradient pseudo-elements
-- **Responsive breakpoints:** 760px (testimonials 3→1 col), 640px (examples/features 2→1 col)
+- **Theme:** light modern SaaS — `--bg: #FAFAF8` background, `--surface: #FFFFFF` cards; `--ink: #14161A` / `--ink-soft: #5A5F68` / `--ink-faint: #9AA0A6` text; `--border: #E6E4DF` hairlines
+- **Accent:** `--green: #0E9A73` (primary CTA, links, savings) with `--green-dark: #0B7D5E` hover and `--green-tint: #E9F6F0` fills; `--rust: #D2543F` (fee portion of pricing bars); `--dark: #14161A` / `--dark-2: #0C0E11` (terminal/output surfaces) with `--mint: #7FE3BC` output text and `--amber: #E3B77F` code accents
+- **Type:** `Space Grotesk` for display headings (h1/h2/brand/stat values); `IBM Plex Sans` for body copy and buttons; `JetBrains Mono` (`.mono`) for labels, nav eyebrows, stats, and code blocks
+- **Motifs:** sticky blurred header; rounded (`12–24px`) card surfaces with soft shadows instead of hard borders; dark terminal-style output/code blocks with mint text; numbered (`01`–`06`) feature cards
+- **Responsive breakpoints:** 900px (nav links hide, CTA remains), 760px (testimonials 3→1 col, install block 2→1 col), 640px (demo/features/results 2→1 col, pricing row columns collapse)
