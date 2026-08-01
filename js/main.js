@@ -1,75 +1,19 @@
-// ---- hero headline shrink animation ----
-const heroEl = document.getElementById('heroHeadline');
-const words = heroEl.textContent.split(' ');
-heroEl.innerHTML = words.map(w => `<span class="shrinkword">${w}</span>`).join(' ');
-setTimeout(() => {
-  document.querySelectorAll('.shrinkword').forEach((el, i) => {
-    setTimeout(() => el.classList.add('done'), i * 120);
-  });
-}, 600);
-
 // ---- aggression label ----
-const levels = {
-  1: 'Level 1 — "barely trimmed"',
-  2: 'Level 2 — "comfortably lean"',
-  3: 'Level 3 — "noticeably efficient"',
-  4: 'Level 4 — "aggressively optimized"',
-  5: 'Level 5 — "maximum compression"'
-};
+// level names, gentlest to most destructive — same idea as naming model sizes
+// instead of numbering them
+const LEVEL_NAMES = ['Garlic Press', 'Panini Press', 'Vacuum Sealer', 'Pressure Cooker', 'Meat Grinder'];
+function levelLabel(level) {
+  return `${LEVEL_NAMES[level - 1]} (lvl ${level})`;
+}
 const aggInput = document.getElementById('aggression');
 const aggLabel = document.getElementById('aggressionLabel');
 aggInput.addEventListener('input', () => {
-  aggLabel.textContent = levels[aggInput.value];
+  aggLabel.textContent = levelLabel(aggInput.value);
 });
 
 // ---- shrink algorithm ----
-const vowelPattern = /[aeiouAEIOU]/g;
-
-function shrinkText(text, level) {
-  let words = text.trim().split(/\s+/).filter(Boolean);
-  if (words.length === 0) return '';
-
-  // stage 1: strip most punctuation
-  words = words.map(w => w.replace(/[,.;:!?"']/g, ''));
-
-  // stage 2: adaptive vowel elision — more aggressive at higher levels,
-  // but always keep the first letter of each word so it's semi-legible
-  const vowelKeepChance = [1, 0.85, 0.55, 0.3, 0.1][level - 1];
-  words = words.map(w => {
-    if (w.length <= 3) return w;
-    const first = w[0];
-    const rest = w.slice(1).split('').filter(ch => {
-      if (!/[aeiouAEIOU]/.test(ch)) return true;
-      return Math.random() < vowelKeepChance;
-    }).join('');
-    return first + rest;
-  });
-
-  // stage 3: common word contractions (dumb optimizations)
-  const dumbMap = {
-    'because': 'bc', 'you': 'u', 'your': 'ur', "you're": 'ur',
-    'and': '&', 'thursday': 'thursdy', 'afternoon': 'PM', 'morning': 'AM',
-    'schedule': 'schedul', 'production': 'prod', 'engineer': 'eng',
-    'percent': 'pct', 'quarterly': 'qtrly', 'segment': 'seg'
-  };
-
-  // stage 4: merge N adjacent words into one compound, N grows with level
-  const mergeGroup = [1, 1, 2, 3, 5][level - 1];
-  const merged = [];
-  for (let i = 0; i < words.length; i += mergeGroup) {
-    const chunk = words.slice(i, i + mergeGroup).join('');
-    merged.push(chunk);
-  }
-
-  let result = merged.join(level >= 4 ? '' : ' ');
-
-  // stage 5: enterprise mode — collapse EVERYTHING into one word
-  if (level === 5) {
-    result = merged.join('').toLowerCase();
-  }
-
-  return result || '(nothing survived)';
-}
+// shrinkText() lives in js/shrink.js, loaded before this file, so it can
+// also be required from Node for tests without a DOM.
 
 const inputText = document.getElementById('inputText');
 const outputBox = document.getElementById('outputBox');
@@ -113,8 +57,43 @@ function runShrink() {
   statTokens.textContent = pctSaved + '%';
   statMoney.textContent = '$' + money;
   statReadability.textContent = readability + '%';
-  statRow.style.display = 'flex';
+  statRow.style.display = 'grid';
 }
 
 shrinkBtn.addEventListener('click', runShrink);
 window.addEventListener('load', () => setTimeout(runShrink, 1400));
+
+// ---- pricing: spend slider drives the reduction table ----
+const spendInput = document.getElementById('spend');
+const spendLabel = document.getElementById('spendLabel');
+const pricingRowsEl = document.getElementById('pricingRows');
+const pricingExampleEl = document.getElementById('pricingExample');
+
+const REDUCTIONS = [0.08, 0.19, 0.33, 0.41, 0.68];
+const BAR_WIDTHS = ['12%', '28%', '49%', '60%', '100%'];
+
+function fmt(n) {
+  return '$' + n.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+}
+
+function renderPricing() {
+  const spend = parseInt(spendInput.value, 10);
+  spendLabel.textContent = '$' + spend.toLocaleString('en-US');
+
+  pricingRowsEl.innerHTML = REDUCTIONS.map((p, i) => `
+    <div class="pricing-row">
+      <div class="level mono">${LEVEL_NAMES[i]}<br><span class="level-num">lvl ${i + 1}</span></div>
+      <div class="reduction">${Math.round(p * 100)}%</div>
+      <div class="pricing-bar-track"><div class="pricing-bar-fill" style="width:${BAR_WIDTHS[i]};"><div class="pricing-bar-keep"></div><div class="pricing-bar-fee"></div></div></div>
+      <div class="keep">${fmt(spend * p * 0.99)} kept</div>
+    </div>
+  `).join('');
+
+  const spent = spend * 0.41;
+  const fee = spent * 0.01;
+  const kept = spent * 0.99;
+  pricingExampleEl.textContent = `Worked example: spend $${spend.toLocaleString('en-US')}/mo, run Pressure Cooker (lvl 4), cut 41% of your tokens. That's ${fmt(spent)} saved. SHRNKR takes ${fmt(fee)} of it. You keep ${fmt(kept)}. Same formula at any spend, any level.`;
+}
+
+spendInput.addEventListener('input', renderPricing);
+renderPricing();

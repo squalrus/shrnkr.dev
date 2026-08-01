@@ -8,16 +8,19 @@ Live site: [shrnkr.dev](https://shrnkr.dev)
 
 ## What it is
 
-SHRNKR presents a fake dev-tool product: a pricing page charging per word saved, a live text-shrinker demo (drag the aggression slider to 5), fabricated before/after case studies, and testimonials written in increasingly shrunken text. A sibling production of [badgefor.me](https://badgefor.me).
+SHRNKR presents a fake dev-tool product: a live text-shrinker demo (drag the compression slider to Meat Grinder), fabricated before/after case studies, a pricing model that takes 1% of whatever token spend it "saves" you, and one testimonial written entirely in the product's own compressed style. A sibling production of [badgefor.me](https://badgefor.me).
 
-## Pricing
+## Compression levels
 
-| Plan | Shrink level | Price | What survives |
-| --- | --- | --- | --- |
-| Free | Level 1 | $0 | Your dignity, mostly |
-| Starter | Level 3 | $29/mo | Most vowels |
-| Growth | Level 4 | $99/mo | Nouns, occasionally |
-| Enterprise | Level 5 | Call us | A single unbroken word per response |
+| Level | Name | Token reduction |
+| --- | --- | --- |
+| 1 | Garlic Press | 8% |
+| 2 | Panini Press | 19% |
+| 3 | Vacuum Sealer | 33% |
+| 4 | Pressure Cooker | 41% |
+| 5 | Meat Grinder | 68% |
+
+No flat plans, no per-seat fee — SHRNKR's entire price is 1% of the token spend it removes from your bill, at any spend level.
 
 See [CONTRIBUTING.md](CONTRIBUTING.md) for local setup and project structure.
 
