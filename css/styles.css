@@ -344,7 +344,7 @@ textarea:focus, input:focus{outline:2px solid var(--green);outline-offset:1px;}
   background:var(--surface);border:1px solid var(--border);border-radius:16px;
   padding:26px;display:flex;flex-direction:column;gap:16px;
 }
-.testimonial-card p{margin:0;font-size:14.5px;line-height:1.65;color:var(--ink);flex:1;}
+.testimonial-card p{margin:0;font-size:14.5px;line-height:1.65;color:var(--ink);flex:1;overflow-wrap:anywhere;}
 .testimonial-who{display:flex;align-items:center;gap:12px;}
 .testimonial-avatar{
   width:36px;height:36px;border-radius:50%;
