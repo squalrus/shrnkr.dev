@@ -2,6 +2,21 @@
 
 User-visible changes, newest first. Follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) format and [semver](https://semver.org/) versioning.
 
+## [0.3.2] — 2026-08-01
+
+### Added
+
+- **GitHub repo link badge.** A "View source" shield now sits alongside the stars/npm-version/license badge band in the hero, linking directly to the public repo. (`index.html`)
+
+### Changed
+
+- **Footer tagline removed.** "A sibling production of badgefor.me." dropped from the footer now that the suite bar above the header already covers that link. (`index.html`, `css/styles.css`)
+
+### Fixed
+
+- **Footer had no horizontal padding on mobile.** `.footer-inner`'s own `padding` shorthand was silently overriding `.wrap`'s side padding on the same element (same specificity, declared later in the stylesheet), so footer content sat flush against the viewport edge below the site's max-width breakpoint. Set `.footer-inner`'s padding explicitly instead of relying on cascade order. (`css/styles.css`)
+- **Long testimonial word overflowed its card.** A single unbroken word in a testimonial could push past the card's edge instead of wrapping. (`css/styles.css`)
+
 ## [0.3.1] — 2026-08-01
 
 ### Added
