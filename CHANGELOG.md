@@ -2,6 +2,22 @@
 
 User-visible changes, newest first. Follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) format and [semver](https://semver.org/) versioning.
 
+## [0.3.1] — 2026-08-01
+
+### Added
+
+- **GitHub stars badge.** A real, auto-updating shields.io badge (linked to the public repo) plus parody npm-version/license badges now sit under the hero CTA row — leans into the "posing as an npm package" bit with a stat that's actually live. (`index.html`, `css/styles.css`)
+- **SCIENCE.md.** A non-satirical technical appendix measuring what `shrinkText()` actually does to real LLM token counts (via `cl100k_base`/`o200k_base` tokenization), not just character counts. Finding: character reduction climbs monotonically with level, but token reduction doesn't — levels 3–4 are the *worst* performers on real tokens (~3–11%, sometimes negative on individual samples) despite cutting the most characters, because word-merging breaks the tokenizer's learned merges; the marketed "38% avg." / "41% at level 4" figures are cosmetic string-length math, not real savings. (`SCIENCE.md`)
+
+### Changed
+
+- **Live demo now defaults to Pressure Cooker (lvl 4)** instead of Vacuum Sealer (lvl 3). (`index.html`)
+- **Pricing subhead** now ends with "The more you keep, the more we keep. Everybody wins. Mostly us." (`index.html`)
+
+### Fixed
+
+- **Sentence Flattening pass didn't strip dash variants.** Em dashes, en dashes, and hyphens (e.g. the `—` in "Sure — here" or the `-` in "right-size") survived punctuation stripping and leaked into shrunk output. Extended the stage to strip the full hyphen/dash character block. Updated the pinned Results-section snippet and its char-savings % to match, and added a regression test. (`js/shrink.js`, `index.html`, `tests/shrink.test.js`)
+
 ## [0.3.0] — 2026-07-31
 
 ### Added
