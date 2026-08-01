@@ -2,6 +2,21 @@
 
 User-visible changes, newest first. Follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) format and [semver](https://semver.org/) versioning.
 
+## [0.3.0] — 2026-07-31
+
+### Added
+
+- **Suite bar.** A slim sticky strip above the header linking out to [squalr.us](https://squalr.us/) (the fictional parent "modern tech productivity suite") and to [badgefor.me](https://badgefor.me/), with a "+ more soon" placeholder for future sibling sites. badgefor.me got the matching component in the same pass, kept pixel-identical (font, sizing, spacing, background/border/muted-text colors) apart from the squalr.us brand color, which is allowed to vary per site. (`index.html`, `css/styles.css`)
+
+### Changed
+
+- **Site width widened from 1120px to 1180px** to match badgefor.me's page width now that the two sites visibly share the suite bar. (`css/styles.css`)
+
+### Fixed
+
+- **Color contrast (WCAG AA).** Several text colors were failing the 4.5:1 minimum: `--green` used as text or under white button labels only reached ~3.5:1 (eyebrows, feature numbers, result labels, footer hover links, the primary CTA button) — moved those to `--green-dark`, which passes in every direction it's used. `--ink-faint` was failing badly (~2.5:1) on light backgrounds in four spots (result labels, pricing level numbers, footer tagline/note) — moved to `--ink-soft`; its one dark-background use was already compliant and left as-is. `--dark-muted` (code-block comments, now also the suite bar) was failing on dark surfaces — lightened the token from `#5A5F68` to `#787C83`. Added a 1px divider between the pricing bar's keep/fee segments, since green-on-rust sits at ~1:1 contrast on its own. (`css/styles.css`)
+- **Missing form label.** The live-demo input `<textarea>` had no associated `<label>` — the adjacent "Input — billed at full price" text was a plain `<div>`. Converted to a `<label for="inputText">`. (`index.html`)
+
 ## [0.2.1] — 2026-07-31
 
 ### Added
