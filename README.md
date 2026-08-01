@@ -2,7 +2,7 @@
 
 A satirical static website posing as token-compression middleware for AI agents — SHRNKR sits "between you and your AI agent" and shrinks every prompt and response into fewer, uglier tokens, Wehadababyitsaboy-style, so your bill goes down and your output goes to hell.
 
-**This is satire. No tokens are actually saved. No package is actually published.**
+**This is satire. No tokens are actually saved. No package is actually published.** See [SCIENCE.md](SCIENCE.md) for what the compression levels below actually do to real LLM token counts.
 
 Live site: [shrnkr.dev](https://shrnkr.dev)
 

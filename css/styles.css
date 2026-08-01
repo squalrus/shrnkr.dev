@@ -127,7 +127,9 @@ nav a.nav-cta:hover{background:var(--green-dark);color:#fff;}
   max-width:600px;margin:0 auto 36px;
   font-size:19px;color:var(--ink-soft);
 }
-.cta-row{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-bottom:48px;}
+.cta-row{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-bottom:24px;}
+.badge-row{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;align-items:center;margin-bottom:48px;}
+.badge-row img{display:block;height:20px;}
 .btn{
   font-family:'IBM Plex Sans',sans-serif;
   font-size:15px;

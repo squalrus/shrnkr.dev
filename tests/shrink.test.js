@@ -88,6 +88,11 @@ test('common words are swapped for compact symbols', () => {
   assert.ok(out.includes('↑'), `expected "increase" -> "↑", got "${out}"`);
 });
 
+test('sentence flattening strips all dash variants, not just hyphen-minus', () => {
+  const out = shrinkText('Sure — here: right-size it – now ― done.', 1, mulberry32(1));
+  assert.ok(!/[-‐-―]/.test(out), `expected no dash characters left, got "${out}"`);
+});
+
 test('JDSL (level 5 only) deletes exactly every 4th character after merging — this is what actually separates level 5 from level 4, not vowel-elision odds alone', () => {
   for (const text of SAMPLES) {
     // with every vowel kept, level 4's output is just the merged, symbol-

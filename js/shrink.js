@@ -107,8 +107,10 @@ function shrinkText(text, level, rng = Math.random) {
   let words = detected.trim().split(/\s+/).filter(Boolean);
   if (words.length === 0) return '';
 
-  // stage 1: strip most punctuation (sentence flattening)
-  words = words.map(w => w.replace(/[,.;:!?"']/g, ''));
+  // stage 1: strip most punctuation, including all dash variants —
+  // hyphen-minus plus the en dash/em dash/horizontal-bar block
+  // (sentence flattening)
+  words = words.map(w => w.replace(/[,.;:!?"'\-‐-―]/g, ''));
 
   // stage 1.5: swap common words for compact symbols
   words = words.map(w => SYMBOL_MAP[w.toLowerCase()] || w);
