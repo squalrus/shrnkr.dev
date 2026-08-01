@@ -2,6 +2,17 @@
 
 User-visible changes, newest first. Follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) format and [semver](https://semver.org/) versioning.
 
+## [0.2.1] — 2026-07-31
+
+### Added
+
+- **Google Analytics (GA4).** Added the gtag.js tag to `index.html`'s `<head>`. (`index.html`)
+
+### Changed
+
+- **Footer cleanup.** Dropped the fake "urgnt-prodown-fixnow incident report" disclaimer and the "no tokens/words survived" gag line, replaced with a straightforward copyright line; moved the "sibling production of badgefor.me" credit up next to the logo as a small tagline instead of burying it in the fine print. (`index.html`, `css/styles.css`)
+- **Third "What CTOs are typing" testimonial rewritten** to reference the actual squish mechanic ("half the responses read like a ransom note now. worth it.") instead of a generic cost-savings line. (`index.html`)
+
 ## [0.2.0] — 2026-07-31
 
 ### Added
