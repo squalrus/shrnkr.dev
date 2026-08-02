@@ -18,7 +18,7 @@ User-visible changes, newest first. Follows [Keep a Changelog](https://keepachan
 - **Hero headline and subhead rewritten.** "Stop sending tokens. Start sending token." replaces "Pay for meaning, not formatting."; subhead now ends "...Your prompts, less so." New "Vowel-optional · invoice-mandatory" line added under the hero CTAs. (`index.html`, `assets/og-template.html`)
 - **"How it works" cards reshuffled.** Combined "Sentence Flattening" and "Symbol Substitution" into one "Typographic Compression" card to make room for the new DLE™ card while keeping the grid at six cards total. (`index.html`)
 - **Priyank M. testimonial rewritten** for a more cynical, on-brand punchline: "Nobody on my team can read the responses anymore. Nobody on my team pays the invoice." (`index.html`)
-- **Meta description trimmed** from 178 to 157 characters to avoid mid-sentence truncation in search results. (`index.html`)
+- **Title, meta description, OG/Twitter tags, and JSON-LD description rewritten.** Old copy ("Middleware That Deletes The Words You Didn't Need") contained zero occurrences of "token" — the primary keyword for this product category, and now the dominant word in the hero headline. New title: "SHRNKR — Token-Compression Middleware for AI Agents"; description leads with the single-token hook and stays under the ~160-char search-snippet truncation point. (`index.html`)
 - **`og-image.png` regenerated** to match the new headline/testimonial copy, and the `.scanner-line` render artifact (a hard-edged rectangle behind the testimonial card) removed from `og-template.html`. (`assets/og-template.html`, `assets/images/og-image.png`)
 
 ### Fixed
