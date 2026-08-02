@@ -1,3 +1,28 @@
+// ---- hero headline: types itself out at lvl 4 compression once the visitor scrolls a bit ----
+const heroHeadline = document.getElementById('heroHeadline');
+if (heroHeadline) {
+  const shrunkHeadline = shrinkText(heroHeadline.textContent, 4);
+  const SCROLL_TRIGGER = 150;
+  function onHeroScroll() {
+    if (window.scrollY < SCROLL_TRIGGER) return;
+    window.removeEventListener('scroll', onHeroScroll);
+    heroHeadline.textContent = '';
+    let i = 0;
+    const typer = setInterval(() => {
+      heroHeadline.textContent = shrunkHeadline.slice(0, i);
+      const cursor = document.createElement('span');
+      cursor.className = 'cursor';
+      heroHeadline.appendChild(cursor);
+      i++;
+      if (i > shrunkHeadline.length) {
+        clearInterval(typer);
+        heroHeadline.textContent = shrunkHeadline;
+      }
+    }, 12);
+  }
+  window.addEventListener('scroll', onHeroScroll, { passive: true });
+}
+
 // ---- aggression label ----
 // level names, gentlest to most destructive — same idea as naming model sizes
 // instead of numbering them
@@ -21,6 +46,7 @@ const shrinkBtn = document.getElementById('shrinkBtn');
 const statRow = document.getElementById('statRow');
 const statTokens = document.getElementById('statTokens');
 const statMoney = document.getElementById('statMoney');
+const statFee = document.getElementById('statFee');
 const statReadability = document.getElementById('statReadability');
 
 function runShrink() {
@@ -52,10 +78,12 @@ function runShrink() {
   const newLen = shrunk.length;
   const pctSaved = Math.max(0, Math.round((1 - newLen / Math.max(origLen, 1)) * 100));
   const readability = Math.max(2, 100 - pctSaved - level * 6);
-  const money = (pctSaved / 100 * 0.014 * (origLen / 4)).toFixed(4);
+  const savedAmount = pctSaved / 100 * 0.014 * (origLen / 4);
+  const feeAmount = savedAmount * 0.01; // SHRNKR's cut — 1% of what it saves you
 
   statTokens.textContent = pctSaved + '%';
-  statMoney.textContent = '$' + money;
+  statMoney.textContent = '$' + savedAmount.toFixed(4);
+  statFee.textContent = '$' + feeAmount.toFixed(4);
   statReadability.textContent = readability + '%';
   statRow.style.display = 'grid';
 }

@@ -2,6 +2,31 @@
 
 User-visible changes, newest first. Follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) format and [semver](https://semver.org/) versioning.
 
+## [0.4.0] — 2026-08-01
+
+### Added
+
+- **Live-typing hero headline.** The h1 now retypes itself into its own level-4-compressed form once the visitor scrolls past a small threshold — the same typewriter effect as the live demo, demonstrating the product on its own copy. (`js/main.js`, `css/styles.css`)
+- **"What you pay" stat in the live demo.** A fourth stat tile shows SHRNKR's 1% fee sitting alongside the existing "projected savings" figure, using the same fee formula as the pricing section. (`index.html`, `js/main.js`, `css/styles.css`)
+- **DLE™ (Duplicate Letter Elimination).** New level-4-exclusive compression pass — collapses any run of identical consecutive characters down to one — giving level 4 its own distinguishing mechanism instead of just a lower vowel-keep chance. Documented in its own "How it works" card. (`js/shrink.js`, `index.html`)
+- **SEO structured data.** JSON-LD `WebSite`/`Organization` markup, `og:site_name`, and `theme-color`. (`index.html`)
+- **Credit-card field in the install snippet.** `creditcard: '4242 4242 4242 4242'` with a "for your convenience — live per-use billing & monitoring" comment, parodying usage-based-billing dark patterns. (`index.html`)
+
+### Changed
+
+- **Compression reaches a single token one level sooner.** Word-pairing now starts at level 2 (was level 3); the full merge-into-one-lowercase-word behavior now kicks in at level 3 (was level 4). Updated the affected pinned Results-section/testimonial snippets and test assertions to match. (`js/shrink.js`, `index.html`, `tests/shrink.test.js`, `tests/compare-levels.js`)
+- **Hero headline and subhead rewritten.** "Stop sending tokens. Start sending token." replaces "Pay for meaning, not formatting."; subhead now ends "...Your prompts, less so." New "Vowel-optional · invoice-mandatory" line added under the hero CTAs. (`index.html`, `assets/og-template.html`)
+- **"How it works" cards reshuffled.** Combined "Sentence Flattening" and "Symbol Substitution" into one "Typographic Compression" card to make room for the new DLE™ card while keeping the grid at six cards total. (`index.html`)
+- **Priyank M. testimonial rewritten** for a more cynical, on-brand punchline: "Nobody on my team can read the responses anymore. Nobody on my team pays the invoice." (`index.html`)
+- **Meta description trimmed** from 178 to 157 characters to avoid mid-sentence truncation in search results. (`index.html`)
+- **`og-image.png` regenerated** to match the new headline/testimonial copy, and the `.scanner-line` render artifact (a hard-edged rectangle behind the testimonial card) removed from `og-template.html`. (`assets/og-template.html`, `assets/images/og-image.png`)
+
+### Fixed
+
+- **Install code block could scroll horizontally on mobile** instead of wrapping long lines. (`css/styles.css`)
+- **Hero "New" badge looked stretched when it wrapped to two lines on mobile** — pill border-radius and dot alignment didn't account for multi-line wrapping. (`css/styles.css`)
+- **Long merged-word output could overflow its container** in the hero headline, in addition to the existing demo-output/results-snippet/testimonial cases. (`css/styles.css`)
+
 ## [0.3.2] — 2026-08-01
 
 ### Added

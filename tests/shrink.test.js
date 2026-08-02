@@ -37,21 +37,23 @@ test('level 1 keeps every vowel and every word separate when nothing else is in 
   assert.equal(shrinkText('production deployment quarter', 1, rng), 'production deployment quarter');
 });
 
-test('levels 1-3 stay space-separated, levels 4-5 collapse to one token', () => {
+test('levels 1-2 stay space-separated, levels 3-5 collapse to one token', () => {
   for (const text of SAMPLES) {
-    for (const level of [1, 2, 3]) {
+    for (const level of [1, 2]) {
       assert.ok(shrinkText(text, level, mulberry32(1)).includes(' '), `level ${level} should keep spaces`);
     }
-    for (const level of [4, 5]) {
+    for (const level of [3, 4, 5]) {
       assert.ok(!shrinkText(text, level, mulberry32(1)).includes(' '), `level ${level} should have no spaces`);
     }
   }
 });
 
-test('level 5 output is always lowercase', () => {
+test('levels 3-5 output is always lowercase', () => {
   for (const text of SAMPLES) {
-    const out = shrinkText(text, 5, mulberry32(2));
-    assert.equal(out, out.toLowerCase());
+    for (const level of [3, 4, 5]) {
+      const out = shrinkText(text, level, mulberry32(2));
+      assert.equal(out, out.toLowerCase(), `level ${level} should be all lowercase`);
+    }
   }
 });
 
@@ -95,13 +97,23 @@ test('sentence flattening strips all dash variants, not just hyphen-minus', () =
 
 test('JDSL (level 5 only) deletes exactly every 4th character after merging — this is what actually separates level 5 from level 4, not vowel-elision odds alone', () => {
   for (const text of SAMPLES) {
-    // with every vowel kept, level 4's output is just the merged, symbol-
-    // substituted, punctuation-stripped text — i.e. level 5's shape right
-    // before JDSL runs on it (case aside).
-    const out4 = shrinkText(text, 4, keepAllVowels);
+    // with every vowel kept, level 3's output is just the merged, symbol-
+    // substituted, punctuation-stripped, lowercased text with no extra
+    // mechanism applied — i.e. level 5's shape right before JDSL runs on it.
+    // (level 4 isn't the right baseline anymore: it now runs its own
+    // Duplicate Letter Elimination pass, so its length no longer lines up
+    // with level 5's pre-JDSL shape.)
+    const out3 = shrinkText(text, 3, keepAllVowels);
     const out5 = shrinkText(text, 5, keepAllVowels);
-    const expectedLength = out4.length - Math.floor(out4.length / 4);
-    assert.equal(out5.length, expectedLength, `expected JDSL to drop 1/4 of "${out4}"`);
-    assert.notEqual(out5, out4.toLowerCase());
+    const expectedLength = out3.length - Math.floor(out3.length / 4);
+    assert.equal(out5.length, expectedLength, `expected JDSL to drop 1/4 of "${out3}"`);
+    assert.notEqual(out5, out3);
+  }
+});
+
+test('Duplicate Letter Elimination (level 4 only) collapses consecutive repeated characters', () => {
+  for (const text of SAMPLES) {
+    const out4 = shrinkText(text, 4, keepAllVowels);
+    assert.ok(!/(.)\1/.test(out4), `expected no consecutive duplicate characters in level 4 output, got "${out4}"`);
   }
 });
