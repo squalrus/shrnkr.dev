@@ -60,8 +60,8 @@ for (const text of SAMPLES) {
 }
 
 console.log('='.repeat(70));
-console.log('Note: level 5 runs everything level 4 does (same merge/join, just a');
-console.log('lower vowelKeepChance: 0.1 vs 0.3) and then additionally applies JDSL,');
-console.log('which deletes every 4th character outright regardless of what it is.');
-console.log('That JDSL pass is what keeps level 5 meaningfully shorter and more');
-console.log('mangled than level 4 instead of the two converging on short input.');
+console.log('Note: levels 3-5 share the same merge-into-one-word + lowercase base.');
+console.log('Level 4 additionally runs DLE (collapses repeated consecutive letters);');
+console.log('level 5 instead runs JDSL (deletes every 4th character outright). Those');
+console.log('two distinct passes are what keep levels 3/4/5 from converging on short');
+console.log('input instead of just differing by vowelKeepChance.');

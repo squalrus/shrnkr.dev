@@ -100,6 +100,20 @@ function jdsl(str) {
   return out;
 }
 
+// stage 3.5 (level 4 only): proprietary Duplicate Letter Elimination —
+// English spelling never needed the second "t" in "letter", so once
+// everything is one word, any run of identical consecutive characters
+// collapses to a single instance. This is what makes level 4 different
+// from level 3, instead of just a lower vowel-keep chance.
+function dle(str) {
+  let out = '';
+  for (let i = 0; i < str.length; i++) {
+    if (str[i] === str[i - 1]) continue;
+    out += str[i];
+  }
+  return out;
+}
+
 function shrinkText(text, level, rng = Math.random) {
   // stage 0: redundant phrase detection
   const detected = detectRedundantPhrases(text);
@@ -128,15 +142,23 @@ function shrinkText(text, level, rng = Math.random) {
     return first + rest;
   });
 
-  // stage 3: merge N adjacent words into one compound, N grows with level
-  const mergeGroup = [1, 1, 2, 3, 5][level - 1];
+  // stage 3: merge N adjacent words into one compound, N grows with level —
+  // words start pairing up as early as level 2, and by level 3 the whole
+  // response is already a single token
+  const mergeGroup = [1, 2, 3, 5, 5][level - 1];
   const merged = [];
   for (let i = 0; i < words.length; i += mergeGroup) {
     const chunk = words.slice(i, i + mergeGroup).join('');
     merged.push(chunk);
   }
 
-  let result = merged.join(level >= 4 ? '' : ' ');
+  let result = merged.join(level >= 3 ? '' : ' ');
+  if (level >= 3) result = result.toLowerCase();
+
+  // stage 3.5: level 4 only — see dle() above
+  if (level === 4) {
+    result = dle(result);
+  }
 
   // stage 4: enterprise mode — collapse EVERYTHING into one word, then
   // run it through JDSL

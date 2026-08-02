@@ -14,26 +14,47 @@
   gtag('config', 'G-YHGR3TGYKF');
 </script>
 
-<title>SHRNKR — Middleware That Deletes The Words You Didn't Need</title>
-<meta name="description" content="SHRNKR sits between you and your AI agent and strips every prompt and response down to the words carrying the meaning — fewer tokens in, fewer tokens out, lower bill, every time.">
+<title>SHRNKR — Token-Compression Middleware for AI Agents</title>
+<meta name="description" content="SHRNKR sits between you and your AI agent and compresses every prompt and response into as few tokens as possible — ideally one. Lower bill, every time.">
 <meta name="robots" content="index, follow">
 <link rel="canonical" href="https://shrnkr.dev/">
+<meta name="theme-color" content="#0C0E11">
 
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://shrnkr.dev/">
-<meta property="og:title" content="SHRNKR — Middleware That Deletes The Words You Didn't Need">
-<meta property="og:description" content="SHRNKR sits between you and your AI agent and strips every prompt and response down to the words carrying the meaning — fewer tokens in, fewer tokens out, lower bill, every time.">
+<meta property="og:site_name" content="SHRNKR">
+<meta property="og:title" content="SHRNKR — Token-Compression Middleware for AI Agents">
+<meta property="og:description" content="SHRNKR sits between you and your AI agent and compresses every prompt and response into as few tokens as possible — ideally one. Lower bill, every time.">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://shrnkr.dev/assets/images/og-image.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="SHRNKR — Middleware That Deletes The Words You Didn't Need">
-<meta name="twitter:description" content="SHRNKR sits between you and your AI agent and strips every prompt and response down to the words carrying the meaning — fewer tokens in, fewer tokens out, lower bill, every time.">
+<meta name="twitter:title" content="SHRNKR — Token-Compression Middleware for AI Agents">
+<meta name="twitter:description" content="SHRNKR sits between you and your AI agent and compresses every prompt and response into as few tokens as possible — ideally one. Lower bill, every time.">
 <meta name="twitter:image" content="https://shrnkr.dev/assets/images/og-image.png">
 
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": "SHRNKR",
+  "url": "https://shrnkr.dev/",
+  "description": "SHRNKR sits between you and your AI agent and compresses every prompt and response into as few tokens as possible — ideally one. Lower bill, every time.",
+  "publisher": {
+    "@type": "Organization",
+    "name": "SHRNKR",
+    "url": "https://shrnkr.dev/",
+    "sameAs": [
+      "https://github.com/squalrus/shrnkr.dev",
+      "https://squalr.us/"
+    ]
+  }
+}
+</script>
 
 <link rel="preconnect" href="https://fonts.googleapis.com/">
 <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin>
@@ -80,16 +101,17 @@
 
   <section class="hero">
     <div class="hero-badge"><span class="hero-badge-dot"></span>New — Meat Grinder (lvl 5) compression is now generally available</div>
-    <h1 id="heroHeadline">Pay for meaning, not formatting.</h1>
-    <p class="sub">SHRNKR is a drop-in compression layer between you and your AI agent. Every prompt and response is rewritten into dramatically fewer tokens before it's billed — so the number on your invoice goes down. Immediately. Measurably.</p>
+    <h1 id="heroHeadline">Stop sending tokens. Start sending token.</h1>
+    <p class="sub">SHRNKR is a drop-in compression layer between you and your AI agent. Every prompt and response is rewritten into dramatically fewer tokens before it's billed — so the number on your invoice goes down. Immediately. Measurably. Your prompts, less so.</p>
     <div class="cta-row">
       <a class="btn" href="#demo">Start shrinking — free</a>
       <a class="btn ghost" href="#install">$ npm install shrnkr</a>
     </div>
+    <div class="hero-jargon mono">Vowel-optional &middot; invoice-mandatory</div>
     <div class="badge-row">
       <a href="https://github.com/squalrus/shrnkr.dev" target="_blank" rel="noopener"><img src="https://img.shields.io/badge/GitHub-View_source-0E9A73?style=flat-square&amp;logo=github&amp;logoColor=white&amp;labelColor=14161A" alt="View source on GitHub"></a>
       <a href="https://github.com/squalrus/shrnkr.dev" target="_blank" rel="noopener"><img src="https://img.shields.io/github/stars/squalrus/shrnkr.dev?style=flat-square&amp;label=stars&amp;color=0E9A73&amp;labelColor=14161A" alt="GitHub stars"></a>
-      <img src="https://img.shields.io/badge/npm-v0.3.2-0E9A73?style=flat-square&amp;labelColor=14161A" alt="npm version">
+      <img src="https://img.shields.io/badge/npm-v0.4.0-0E9A73?style=flat-square&amp;labelColor=14161A" alt="npm version">
       <img src="https://img.shields.io/badge/license-MIT-0E9A73?style=flat-square&amp;labelColor=14161A" alt="license MIT">
     </div>
     <div class="hero-stats">
@@ -126,6 +148,7 @@
       <div class="demo-stats" id="statRow" style="display:none;">
         <div class="demo-stat"><div class="demo-stat-value" id="statTokens">0%</div><div class="demo-stat-label">tokens saved</div></div>
         <div class="demo-stat"><div class="demo-stat-value" id="statMoney">$0.0000</div><div class="demo-stat-label">projected savings</div></div>
+        <div class="demo-stat fee"><div class="demo-stat-value" id="statFee">$0.0000</div><div class="demo-stat-label">what you pay</div></div>
         <div class="demo-stat neutral"><div class="demo-stat-value" id="statReadability">100%</div><div class="demo-stat-label">readability retained</div></div>
       </div>
     </div>
@@ -141,7 +164,7 @@
       <div class="feature-card">
         <div class="feature-num">01</div>
         <h3>Semantic Concatenation Engine&trade;</h3>
-        <p>Fuses adjacent words into a single compact token — same meaning, fewer characters on the invoice.</p>
+        <p>Why pay for a thousand little tokens when one enormous one will do. Fuses adjacent words into a single compact token — same meaning, fewer characters on the invoice.</p>
       </div>
       <div class="feature-card">
         <div class="feature-num">02</div>
@@ -150,8 +173,8 @@
       </div>
       <div class="feature-card">
         <div class="feature-num">03</div>
-        <h3>Sentence Flattening</h3>
-        <p>Strips punctuation tokens that add cost without adding information.</p>
+        <h3>Typographic Compression</h3>
+        <p>Strips punctuation tokens that add cost without adding information, then swaps common words for compact symbols your model already understands — "move" becomes "→", "and" becomes "&amp;". Same instruction, fewer characters on the invoice.</p>
       </div>
       <div class="feature-card">
         <div class="feature-num">04</div>
@@ -160,8 +183,8 @@
       </div>
       <div class="feature-card">
         <div class="feature-num">05</div>
-        <h3>Symbol Substitution</h3>
-        <p>Swaps common words for compact symbols your model already understands — "move" becomes "→", "and" becomes "&amp;". Same instruction, fewer characters on the invoice.</p>
+        <h3>DLE&trade;</h3>
+        <p>Duplicate Letter Elimination. English spelling never needed the second "t" in "letter" — once your response is squished into a single word, DLE collapses every run of identical characters down to one. Engages exclusively at Pressure Cooker (lvl 4) tier.</p>
       </div>
       <div class="feature-card">
         <div class="feature-num">06</div>
@@ -185,8 +208,8 @@
         </div>
         <div class="result-after">
           <div class="result-label after">After · Pressure Cooker (lvl 4)</div>
-          <div class="result-snippet">SrhrarethrwaystordcurAWSbllrghtszurEC2instnces→colddattoS3Glcer&amp;setupbllngalrts</div>
-          <div class="result-meta"><span class="saving">&darr; 43% chars</span> &middot; same three recommendations, none of the padding</div>
+          <div class="result-snippet">srhrarethrwaystordcurawsblrghtszurec2instnces→coldatos3glcer&amp;setupblngalrts</div>
+          <div class="result-meta"><span class="saving">&darr; 46% chars</span> &middot; same three recommendations, none of the padding</div>
         </div>
       </div>
       <div class="result-card">
@@ -196,8 +219,8 @@
         </div>
         <div class="result-after">
           <div class="result-label after">After · Vacuum Sealer (lvl 3)</div>
-          <div class="result-snippet">Idrecommnd schdlingthe clientcll forThursday aftrnonbc Pryamentioned shstravlng Wednsdy&amp; wntbe backuntl latemrnng</div>
-          <div class="result-meta"><span class="saving">&darr; 25% chars</span> &middot; meeting still lands Thursday afternoon</div>
+          <div class="result-snippet">idrecommndschdlingtheclientcllforthursdayaftrnonbcpryamentionedshstravlngwednsdy&amp;wntbebackuntllatemrnng</div>
+          <div class="result-meta"><span class="saving">&darr; 31% chars</span> &middot; meeting still lands Thursday afternoon</div>
         </div>
       </div>
       <div class="result-card">
@@ -242,21 +265,21 @@
     </div>
     <div class="testimonials-grid">
       <div class="testimonial-card">
-        <p>"Wecutourtknspndby41%inwkoneWeddntchangasnglprmpttmplt"</p>
+        <p>"wecutourtknspndby41%inwkonewedntchangasnglprmptmplt"</p>
         <div class="testimonial-who">
           <div class="testimonial-avatar">DR</div>
           <div><div class="testimonial-name">Dana R.</div><div class="testimonial-role">VP Eng at a Series B</div></div>
         </div>
       </div>
       <div class="testimonial-card">
-        <p>"we approved the pilot expecting a rounding error in savings. it was not a rounding error."</p>
+        <p>"Nobody on my team can read the responses anymore. Nobody on my team pays the invoice."</p>
         <div class="testimonial-who">
           <div class="testimonial-avatar">PM</div>
           <div><div class="testimonial-name">Priyank M.</div><div class="testimonial-role">Founder</div></div>
         </div>
       </div>
       <div class="testimonial-card">
-        <p>"half the responses read like a ransom note now. worth it."</p>
+        <p>"Half the responses read like a ransom note now."</p>
         <div class="testimonial-who">
           <div class="testimonial-avatar">A</div>
           <div><div class="testimonial-name">Anonymous</div><div class="testimonial-role">On-call engineer</div></div>
@@ -279,7 +302,10 @@
 <span class="c1">import</span> { shrink } <span class="c1">from</span> <span class="c2">'shrnkr'</span>;<br>
 <br>
 <span class="c3">// wrap any call to your AI agent</span><br>
-<span class="c1">const</span> reply = <span class="c1">await</span> shrink(agent.respond(prompt), { level: <span class="c2">3</span> });<br>
+<span class="c1">const</span> reply = <span class="c1">await</span> shrink(agent.respond(prompt), {<br>
+&nbsp;&nbsp;level: <span class="c2">3</span>,<br>
+&nbsp;&nbsp;creditcard: <span class="c2">'4242 4242 4242 4242'</span> <span class="c3">// for your convenience — live per-use billing &amp; monitoring</span><br>
+});<br>
 <span class="c3">// reply: "sure,hersyourupdatd summry."</span>
       </div>
     </div>
@@ -292,7 +318,7 @@
     <div class="footer-logo">
       <div class="footer-logo-icon">&raquo;&laquo;</div>
       <div>
-        <span class="footer-logo-text mono">shrnkr &middot; <span>v0.3.2</span></span>
+        <span class="footer-logo-text mono">shrnkr &middot; <span>v0.4.0</span></span>
       </div>
     </div>
     <div class="footer-note">
