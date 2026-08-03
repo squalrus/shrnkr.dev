@@ -2,6 +2,12 @@
 
 User-visible changes, newest first. Follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) format and [semver](https://semver.org/) versioning.
 
+## [0.4.1] — 2026-08-03
+
+### Fixed
+
+- **SCIENCE.md's tokenizer analysis was stale against the v0.4.0 algorithm.** The v0.4.0 compression redesign (word-pairing moved to level 2, full one-word merge moved to level 3) changed `shrinkText()`'s output enough that the previously published cl100k/o200k numbers no longer matched what the pipeline actually produces. Re-ran the same methodology (same 5 samples, seed 42, `cl100k_base`/`o200k_base` via `gpt-tokenizer`) against current `js/shrink.js` and rewrote the doc around the new results — which turned out to be a stronger version of the original finding: only level 1 (Garlic Press) now achieves a real token reduction (−10.5% cl100k); every level 2–5 costs *more* billed tokens than sending the original text untouched, with level 3 the new worst performer (+27.7% cl100k avg) and one level-4 sample costing 48.1% more tokens than doing nothing. (`SCIENCE.md`)
+
 ## [0.4.0] — 2026-08-01
 
 ### Added

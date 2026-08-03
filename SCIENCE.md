@@ -5,10 +5,11 @@ question is a real one people actually ask about tools like this: **if you shrin
 prompt's character count, does the token count billed by the model provider go down
 by a comparable amount?**
 
-Short answer: no, not reliably, and sometimes it goes up. This doc explains why, with
-real numbers from a real tokenizer, not the cosmetic string-length math the live demo
-uses (see `README.md` / `CLAUDE.md` — the demo's stats are explicitly not real token
-counts).
+Short answer: no. Against the current algorithm, it's worse than "no" — sending the
+shrunk text through most aggression levels costs *more* real tokens than sending the
+original, unmodified sentence. This doc explains why, with real numbers from a real
+tokenizer, not the cosmetic string-length math the live demo uses (see `README.md` /
+`CLAUDE.md` — the demo's stats are explicitly not real token counts).
 
 ## The core misunderstanding
 
@@ -19,8 +20,8 @@ already contains merges for common whole words and word-fragments — `"your"`,
 are frequently single tokens or small fixed groups of tokens, because they occur
 constantly in the training data.
 
-Deleting characters (vowels, "every 4th character") or substituting slang
-(`your → ur`, `please → pls`) does two things at once:
+Deleting characters (vowels, "every 4th character"), gluing words together with no
+spaces, or substituting slang (`your → ur`, `please → pls`) does two things at once:
 
 1. It reliably shrinks **character count**.
 2. It does *not* reliably shrink **token count** — because the resulting substrings
@@ -36,8 +37,11 @@ vocabulary wasn't built around them.
 ## Methodology
 
 `js/shrink.js`'s `shrinkText()` was run at all five levels against five representative
-business-email-style sample sentences, using a seeded RNG for reproducibility. Output
-was tokenized with two real OpenAI tokenizer vocabularies via the
+business-email-style sample sentences (the same set `tests/compare-levels.js` uses),
+using a seeded RNG (`seed = 42`) for reproducibility. This reflects the pipeline as of
+the v0.4.0 redesign — word-pairing now starts at level 2, the full merge-into-one-word
+behavior kicks in at level 3, DLE runs at level 4, and JDSL runs at level 5 (see
+`CLAUDE.md`). Output was tokenized with two real OpenAI tokenizer vocabularies via the
 [`gpt-tokenizer`](https://www.npmjs.com/package/gpt-tokenizer) package:
 
 - `cl100k_base` (GPT-3.5 / GPT-4 generation)
@@ -50,40 +54,49 @@ encode the before/after strings.
 
 ## Results
 
-Aggregate across all five samples, token counts relative to the unshrunk original:
+Aggregate across all five samples, relative to the unshrunk original:
 
 | Level | Avg. char reduction | cl100k token Δ | o200k token Δ |
-|---|---|---|---|
-| 1 — Garlic Press | −38% | **−28.1%** | **−29.2%** |
-| 2 — Panini Press | −40% | −18.5% | −22.5% |
-| 3 — Vacuum Sealer | −52% | −2.2% | −10.1% |
-| 4 — Pressure Cooker | −60% | −2.8% | −10.7% |
-| 5 — Meat Grinder | −70% | −25.3% | −33.1% |
+| --- | --- | --- | --- |
+| 1 — Garlic Press | −4.8% | **−10.5%** | **−7.1%** |
+| 2 — Panini Press | −15.1% | **+7.1%** | **+9.4%** |
+| 3 — Vacuum Sealer | −29.4% | **+27.7%** | **+30.2%** |
+| 4 — Pressure Cooker | −36.4% | **+23.1%** | **+27.1%** |
+| 5 — Meat Grinder | −53.9% | **+8.6%** | **+8.9%** |
 
-Two things jump out:
+A few things jump out:
 
-**Character reduction climbs monotonically with level; token reduction does not.**
-Levels 3 and 4 — the "more aggressive" middle tiers — are the *worst* performers on
-actual billable tokens, despite cutting far more characters than level 1. In one
-individual sample, level 3 cost **+34% more cl100k tokens** than sending the original,
-unshrunk sentence. The word-merging stage (levels 3+) deletes spaces and glues words
-into long unbroken strings; BPE has no learned merge for `"achncetolk@thepropsal"`, so
-it shreds the string into many small fallback tokens — you can end up paying for more
-tokens to say less.
+**Only the gentlest setting actually reduces real tokens.** Level 1 — filler-phrase
+deletion, punctuation stripping, and a handful of word→symbol swaps, with vowel
+elision and word-merging both switched off — is the *only* level that comes out ahead
+on billed tokens. Every level from 2 up costs **more** real tokens than sending the
+original sentence untouched, despite cutting anywhere from 15% to 54% of the
+characters. "More aggressive" and "more expensive" point the same direction here.
 
-**Level 5 (JDSL) partially recovers, but by accident, not by design.** Once JDSL
-deletes every 4th character indiscriminately, words are chopped down toward such short
-fragments that the tokenizer's per-character/byte fallback becomes *more* uniform and
-somewhat cheaper again — not because JDSL is smart about tokenization (it deletes
-characters with zero awareness of token boundaries), but because sufficiently
-destroyed text stops trying and failing to match longer vocabulary merges. This is
-also why level 5's output is the least human-readable by a wide margin.
+**Character reduction climbs monotonically with level; token reduction does not, and
+mostly runs backwards.** Level 3 is now the single worst performer on real tokens
+(+27.7% cl100k, +30.2% o200k on average) despite level 4 cutting more characters. In
+one individual sample, level 4 cost **+48.1% more cl100k tokens** than sending the
+original, unshrunk sentence (27 tokens → 40). The word-merging stage (levels 2+)
+deletes spaces and glues words into long unbroken strings; BPE has no learned merge
+for `"theqrtrlyrportshwsrevnup12%drivnprmrilybygrwthinthentrprsesgmnthoghchurntickedupslightlyinsmb"`,
+so it shreds the string into many small fallback tokens — you pay for more tokens to
+say less.
 
-Level 1 — the *gentlest* setting, which only strips filler phrases, punctuation, and a
-handful of very common word→symbol swaps (`and → &`, `you → u`) — is consistently
-among the best actual token-reduction levels, because filler-phrase deletion and
-common-word symbol swaps are the only stages that respect tokenizer vocabulary
-boundaries at all.
+**Level 5 (JDSL) blunts the damage, but doesn't undo it.** Once JDSL deletes every 4th
+character indiscriminately, words are chopped down toward such short fragments that
+the tokenizer's per-character/byte fallback becomes *more* uniform and somewhat
+cheaper than levels 2–4 again — not because JDSL is smart about tokenization (it
+deletes characters with zero awareness of token boundaries), but because sufficiently
+destroyed text stops trying and failing to match longer vocabulary merges. It still
+lands at +8.6%/+8.9% — worse than doing nothing — and it's also the least
+human-readable output by a wide margin, so there's no tier where "very aggressive"
+buys you anything real.
+
+Level 1 — the setting that only strips filler phrases, punctuation, and a few very
+common word→symbol swaps (`and → &`, `you → u`) — is the sole level that respects
+tokenizer vocabulary boundaries closely enough to come out net negative on actual
+billable tokens.
 
 ## What would actually reduce token spend
 
@@ -113,10 +126,13 @@ needle:
 
 ## The joke, restated with real numbers
 
-SHRNKR's hero stat claims a flat **"38% avg. token reduction"** and the pricing
-section's worked example uses **41% at level 4**. The actual measured number at level
-4, on realistic text, against real tokenizers, is **~3–11%** — worse than level 1, and
-in the wrong direction from what "more aggressive" implies. The demo is honest about
-being cosmetic (`CLAUDE.md`: *"derived from string-length deltas, not any real
-tokenizer"*); this doc is the receipts for why that distinction matters, and why a real
-version of this product would need to compress tokens, not letters.
+SHRNKR's hero stat claims a flat **"38% avg. token reduction"**, and the pricing
+section's worked example and testimonial both cite **41% at level 4**. Against the
+current algorithm and real tokenizers, level 4 doesn't underperform that claim — it
+runs in the *opposite direction*: **+23.1% more cl100k tokens, +27.1% more o200k
+tokens**, on average, than sending the original text. The one level that comes
+anywhere close to a real reduction is level 1, the setting SHRNKR's own UI treats as
+the boring, unambitious tier. The demo is honest about being cosmetic (`CLAUDE.md`:
+*"derived from string-length deltas, not any real tokenizer"*); this doc is the
+receipts for why that distinction matters, and why a real version of this product
+would need to compress tokens, not letters.
